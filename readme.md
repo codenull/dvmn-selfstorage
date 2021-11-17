@@ -1,12 +1,12 @@
 # SelfStorage
 Учебный проект в рамках курса на dvmn.
 
-# Требования
+## Требования
 * Python 3.6+
 
 
 
-# Установка
+## Установка
 Установите зависимости проекта:
 ```sh
 python -m pip install -r requirements.txt
@@ -15,4 +15,9 @@ python -m pip install -r requirements.txt
 Перед запуском проекта выполните миграцию данных:
 ```sh
 python manage.py migrate
+```
+## Переменные окружения
+```
+DEBUG=True
+SECRET_KEY=FILL_ME
 ```
