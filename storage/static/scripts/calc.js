@@ -10,37 +10,7 @@ const elSelectedStorage = document.getElementById('selectedStorage');
 
 
 function getStorages() {
-    let storageList = [
-        {
-            'id': 1,
-            'name': 'Воронеж-Фрахт',
-            'address': 'Воронеж, ул. Минская д. 16',
-            'description': '',
-            'picture': '',
-            'first_square_meter_price': 599,
-            'rest_meters_price': 150
-        },
-        {
-            'id': 2,
-            'name': 'Каскад-Воронеж',
-            'address': 'Воронеж, ул. Ленина д. 5',
-            'description': '',
-            'picture': '',
-            'first_square_meter_price': 400,
-            'rest_meters_price': 100
-        },
-        {
-            'id': 3,
-            'name': 'Кладовка ООО',
-            'address': 'Воронеж, ул. Ворошилова д. 104',
-            'description': '',
-            'picture': '',
-            'first_square_meter_price': 450,
-            'rest_meters_price': 120
-        },
-    ];
-
-    return storageList;
+    return JSON.parse(document.getElementById('storageData').textContent);
 }
 
 function fillStorageList() {
