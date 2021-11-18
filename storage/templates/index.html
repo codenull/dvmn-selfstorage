@@ -6,8 +6,17 @@
   </title>
 {% endblock %}
 {% block content %}
-  <div class="row justify-content-center">
-    <div id="map" class="col-lg-3" style="height: 500px; border: solid 1px black;">
+  <div class="row justify-content-center p-3">
+    <div id="map" class="col-lg-3 p-2"
+     style="min-height: 300px; max-height: 500px;">
+    </div>
+    <div class="col-lg-2 p-2">
+      <h5>Наши адреса</h4>
+      <ul>
+        {% for storage in locations.storages %}
+            <li>{{ storage.address }}</li>
+        {% endfor %}
+        </ul>
     </div>
     <div class="col-lg-3">
       <div class="card mb-3">
@@ -26,29 +35,6 @@
   </div>
 {% endblock %}
 {% block footer_scripts %}
-<script> 
-  const mymap = L.map('map').setView(
-    [51.68, 39.20], 11
-  );
-  L.tileLayer(
-    'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-    {attribution: '&copy; <a rel="nofollow" href="http://osm.org/copyright">OpenStreetMap</a>contributors'}
-  ).addTo(mymap);
-  const storage_1 = L.marker(
-    [51.645587022455096, 39.14092171744473]
-  ).addTo(mymap);
-  const storage_2 = L.marker(
-    [51.63995024463137, 39.27508509992175]
-  ).addTo(mymap);
-  const storage_3 = L.marker(
-    [51.681989385831805, 39.216162263269]
-  ).addTo(mymap);
-  const storage_4 = L.marker(
-    [51.717276911968746, 39.18157199876037]
-  ).addTo(mymap);
-  storage_1.bindPopup("<b>Склад</b><br>на Патриотов");
-  storage_2.bindPopup("<b>Склад</b><br>на Туполева");
-  storage_3.bindPopup("<b>Склад</b><br>на Революции");
-  storage_4.bindPopup("<b>Склад</b><br>на Московском проспекте");
-</script>
+  {{ locations|json_script:"storage-locations" }}
+<script src="{% static 'scripts/map.js' %}"></script>
 {% endblock %}

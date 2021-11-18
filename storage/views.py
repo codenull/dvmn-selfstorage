@@ -1,10 +1,24 @@
+import json
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-import json
+
+from .models import Town
+from .models import Storage
 
 
 def show_index(request):
-    return render(request, 'index.html')
+    town = Town.objects.get(name="Воронеж")
+    locations = {"town": {"location": [town.longitude, town.latitude]},
+                 "storages": []}
+    storages = Storage.objects.filter(town=town)
+    for storage in storages:
+        locations["storages"].append(
+            {"location": [storage.longitude, storage.latitude],
+            "short_description": storage.description,
+            "address": storage.address}
+        )
+    context = {"locations": locations}
+    return render(request, 'index.html', context=context)
 
 
 def show_season(request):
