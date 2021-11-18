@@ -12,3 +12,6 @@ def show_season(request):
 
 def show_checkout(request):
     return render(request, 'checkout.html')
+
+def show_calc(request):
+    return render(request, 'calc.html')
