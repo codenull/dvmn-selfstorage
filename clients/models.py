@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.core import validators
 from django.core.exceptions import ValidationError
-from django.core.validators import MaxValueValidator, MinValueValidator
+from django.core.validators import MinValueValidator
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -35,10 +35,11 @@ class Client(AbstractUser):
         verbose_name='Дата рождения',
         null=True
     ) # прикрутить валидатор проверки совершеннолетия
-    passport = models.PositiveIntegerField(
+    passport = models.CharField(
         'Серия и номер паспорта',
-        validators=[MinValueValidator(10), MaxValueValidator(10)],
-        null=True
+        max_length=10,
+        validators=[MinValueValidator(10)],
+        blank=True, null=True
     )
     agreement = models.BooleanField(
         'Согласие на обработку персональных даных',
