@@ -32,11 +32,13 @@ class Client(AbstractUser):
         verbose_name='Телефон',
     )
     birthday = models.DateField(
-        verbose_name='Дата рождения'
+        verbose_name='Дата рождения',
+        null=True
     ) # прикрутить валидатор проверки совершеннолетия
     passport = models.PositiveIntegerField(
         'Серия и номер паспорта',
-        validators=[MinValueValidator(10), MaxValueValidator(10)]
+        validators=[MinValueValidator(10), MaxValueValidator(10)],
+        null=True
     )
     agreement = models.BooleanField(
         'Согласие на обработку персональных даных',
