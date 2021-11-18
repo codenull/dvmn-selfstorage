@@ -54,8 +54,8 @@
 {% endblock %}
 
 {% block footer_scripts %}
-<script id="storageData" type="application/json">
-    {% context.storages %}
-</script>
-<script src="{% static 'scripts/calc.js' %}"></script>
+    <script id="storageData" type="application/json">
+        {% context.storages %}
+    </script>
+    <script src="{% static 'scripts/calc.js' %}"></script>
 {% endblock %}
