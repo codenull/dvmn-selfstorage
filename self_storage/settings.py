@@ -11,7 +11,7 @@ SECRET_KEY = env.str(
     default='django-insecure-5a-84uq)(=au^(y_furfp$kx88q@^&@xpqho3^#ltdyx%d+)un'
 )
 
-DEBUG = env.bool("DEBUG", default=False)
+DEBUG = env.bool("DEBUG", default=True)
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -87,9 +87,9 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-STATICFILES_DIRS = [BASE_DIR / 'staticfiles', ]
+STATICFILES_DIRS = [BASE_DIR / 'static', ]
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'static'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
