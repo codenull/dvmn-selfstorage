@@ -15,7 +15,10 @@ class Storage(models.Model):
                                  blank=True)
     description = models.TextField(blank=True,
                                    verbose_name='короткое описание')
-    picture = models.ImageField(verbose_name='изображение')
+    picture = models.ImageField(
+        upload_to='storage/',
+        verbose_name='изображение'
+    )
     first_square_meter_price = models.PositiveIntegerField(
         verbose_name='цена за первый метр'
     )
@@ -35,7 +38,10 @@ class Inventory(models.Model):
     name = models.CharField(max_length=100,
                             unique=True,
                             verbose_name='название')
-    picture = models.ImageField(verbose_name='изображение инвентаря')
+    picture = models.ImageField(
+        upload_to='iventory/',
+        verbose_name='изображение инвентаря'
+    )
 
     class Meta:
         verbose_name = 'инвентарь для хранения'
@@ -43,17 +49,24 @@ class Inventory(models.Model):
 
 
 class InventoryPriceList(models.Model):
-    storage = models.ForeignKey(to=Storage, verbose_name='склад')
-    inventory = models.ForeignKey(to=Inventory, verbose_name='инвентарь')
+    storage = models.ForeignKey(to=Storage,
+                                on_delete=models.CASCADE,
+                                verbose_name='склад')
+    inventory = models.ForeignKey(to=Inventory,
+                                  on_delete=models.CASCADE,
+                                  verbose_name='инвентарь')
     price_per_week = models.PositiveIntegerField(verbose_name='цена за неделю')
     price_per_month = models.PositiveIntegerField(verbose_name='цена за месяц')
 
 
-class BoxRentalOrder(models.Model):
+class Order(models.Model):
     client = models.ForeignKey(to=Client,
+                               on_delete=models.CASCADE,
                                related_name='box_rental_orders',
                                verbose_name='клиент')
     storage = models.ForeignKey(to='Storage',
+                                on_delete=models.SET_NULL,
+                                null=True,
                                 related_name='clients',
                                 verbose_name='склад')
     box_size = models.IntegerField(verbose_name='размер бокса',
@@ -61,6 +74,7 @@ class BoxRentalOrder(models.Model):
                                    blank=True)
     inventory = models.ManyToManyField(to='Inventory',
                                        verbose_name='вещи для хранения')
+    price = models.PositiveIntegerField(verbose_name='цена хранения')
     start_date = models.DateField(verbose_name='дата начала услуг')
     end_date = models.DateField(verbose_name='дата окончания услуг')
 
