@@ -57,6 +57,17 @@ class Storage(models.Model):
     def __str__(self):
         return self.address
 
+    def serialize(self):
+        return {
+            "id": self.pk,
+            "name": f'{self}',
+            "address": self.address,
+            "description": self.description,
+            "first_square_meter_price": self.first_square_meter_price,
+            "rest_meters_price": self.rest_meters_price
+        }
+
+
 
 class Inventory(models.Model):
     name = models.CharField(max_length=100,
