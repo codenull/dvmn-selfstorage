@@ -1,18 +1,40 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
-    <title>Сервис хранения SelfStorage</title>
+  <title>
+    Сервис хранения SelfStorage
+  </title>
 {% endblock %}
 {% block content %}
-    <div class="row justify-content-center">
-        <div class="col-lg-3">
-            <div class="card mb-3">
-                <h5 class="card-header border-secondary mx-auto">Калькулятор стоимости хранения</h5>
-                {% csrf_token %}
-                <div class="d-grid gap-2 col-6 mx-auto m-4">
-                    <a class="btn btn-primary" href="{% url 'checkout' %}" role="button">Начать оформление заказа</a>
-                </div>
-            </div>
-        </div>
+  <div class="row justify-content-center p-3">
+    <div id="map" class="col-lg-3 p-2"
+     style="min-height: 300px; max-height: 500px;">
     </div>
+    <div class="col-lg-2 p-2">
+      <h5>Наши адреса</h4>
+      <ul>
+        {% for storage in locations.storages %}
+            <li>{{ storage.address }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+    <div class="col-lg-3">
+      <div class="card mb-3">
+        <h5 class="card-header border-secondary mx-auto">
+          Калькулятор стоимости хранения
+        </h5>
+        {% csrf_token %}
+        <div class="d-grid gap-2 col-6 mx-auto m-4">
+          <a class="btn btn-primary"
+          href="{% url 'checkout' %}" role="button">
+            Начать оформление заказа
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block footer_scripts %}
+  {{ locations|json_script:"storage-locations" }}
+<script src="{% static 'scripts/map.js' %}"></script>
 {% endblock %}

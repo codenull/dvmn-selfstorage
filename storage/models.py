@@ -5,8 +5,29 @@ from django.db import models
 Client = get_user_model()
 
 
+class Town(models.Model):
+    name = models.CharField(max_length=150, verbose_name='название города')
+    longitude = models.FloatField(verbose_name='долгота',
+                                  blank=True,
+                                  null=True)
+    latitude = models.FloatField(verbose_name='широта',
+                                 null=True,
+                                 blank=True)
+
+    class Meta:
+        verbose_name = 'город'
+        verbose_name_plural = 'города'
+
+    def __str__(self):
+        return self.name
+
+
 class Storage(models.Model):
-    address = models.CharField(max_length=150)
+    town = models.ForeignKey(to='Town',
+                             on_delete=models.SET_NULL,
+                             null=True,
+                             verbose_name='город')
+    address = models.CharField(max_length=150, verbose_name='адрес')
     longitude = models.FloatField(verbose_name='долгота',
                                   blank=True,
                                   null=True)
@@ -32,6 +53,9 @@ class Storage(models.Model):
     class Meta:
         verbose_name = 'склад'
         verbose_name_plural = 'склады'
+
+    def __str__(self):
+        return self.address
 
 
 class Inventory(models.Model):
