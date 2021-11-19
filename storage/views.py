@@ -1,5 +1,4 @@
 import json
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
 from .models import Town
@@ -14,8 +13,8 @@ def show_index(request):
     for storage in storages:
         locations["storages"].append(
             {"location": [storage.longitude, storage.latitude],
-            "short_description": storage.description,
-            "address": storage.address}
+             "short_description": storage.description,
+             "address": storage.address}
         )
     context = {"locations": locations}
     return render(request, 'index.html', context=context)
@@ -27,6 +26,7 @@ def show_season(request):
 
 def show_checkout(request):
     return render(request, 'checkout.html')
+
 
 def show_calc(request):
     context = {
