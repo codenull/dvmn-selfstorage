@@ -9,52 +9,52 @@
         <div class="col-md-8 mb-4">
             <div class="card mb-4">
                 <div class="card-header py-3">
-                    <h5 class="mb-0">Детали заказа</h5>
+                    <h5 class="mb-0">Регистрационные данные</h5>
                 </div>
                 <div class="card-body">
                     <form>
-                        <div class="row mb-4">
-                            <div class="col">
-                                <div class="form-outline">
-                                    <li class="list-group-item"><strong> Имя:</strong> Иван</li>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-outline">
-                                    <li class="list-group-item"><strong> Фамилия:</strong> Иванов</li>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-outline">
-                                    <li class="list-group-item"><strong> Отчество:</strong> Иванович</li>
-                                </div>
-                            </div>
-                        </div>
+                         <div class="panel panel-primary setup-content" id="step-4">
+            <div class="panel-heading">
+                 <h3 class="panel-title"></h3>
+            </div>
+            <div class="panel-body">
+                  </div>
+            <div class=" mb-2">
+                <h5 class="card-title">Имя</h5>
+                <input class="form-control" id="InputFirstName" aria-describedby="nameHelp" placeholder="Иван" required>
+            </div>
+            <div class="mx-auto mb-3">
+                <h5 class="card-title">Фамилия</h5>
+                <input class="form-control" id="InputSecondName" aria-describedby="surnameHelp" placeholder="Иванов"
+                       required>
+            </div>
 
-                        <div class="row mb-4">
-                            <div class="col">
-                                <div class="form-outline mb-4">
-                                    <li class="list-group-item"><strong> Серия и номер паспорта:</strong> 1234 567890
-                                    </li>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-outline mb-4">
-                                    <li class="list-group-item"><strong> Дата рождения:</strong> 11.11.1911</li>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-outline mb-4">
-                                    <li class="list-group-item"><strong> Номер телефона:</strong> +7123456789</li>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-check d-flex justify-content-center mb-2">
-                        </div>
-                    </form>
+            <div class="mx-auto mb-3">
+                <h5 class="card-title">Отчество</h5>
+                <input class="form-control" id="PatrName" aria-describedby="patrnameHelp" placeholder="Иванович"
+                       required>
+            </div>
+             <div class="mb-3">
+                <h5 class="card-title">Номер телефона</h5>
+                <input class="form-control" id="InputPhoneNumber" aria-describedby="phoneHelp"
+                       placeholder="+79991234567" required>
+            </div>
+             <div class="mb-3">
+                <h5 class="card-title">Серия и номер паспорта</h5>
+                <input class="form-control" id="InputPasNumber" aria-describedby="pasHelp"
+                       placeholder="4123 456789" required>
+            </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                    <label class="form-check-label" for="invalidCheck">Соглашаюсь на обработку персональных данных</label>
+                    <div class="invalid-feedback">
+                        Вы должны согласиться на обработку персональных данных для оформления заказа
+                    </div>
+                     <div class='mb-3'>
+                <button type="submit" class="btn btn-primary">Вввести платежные данные</button>
+            </div>
                 </div>
             </div>
-        </div>
         <div class="row">
             <div class="col-md-8 mb-4">
                 <div class="card mb-4">

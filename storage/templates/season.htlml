@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+  <title>
+    Сезонное хранение вещей
+  </title>
+{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+        <div class="col-lg-3">
+            <div class="card mb-3">
+                <h5 class="card-header border-secondary mx-auto">Калькулятор сезонного хранения</h5>
+
+    <form role="form">
+        <div class="panel panel-primary setup-content" id="step-1">
+            <div class="panel-heading">
+                 <h3 class="panel-title">Что вы хотите хранить</h3>
+            </div>
+            <div class="panel-body">
+
+<div class="row row-cols-1 row-cols-md-2 g-4">
+  <div class="col">
+    <div class="card">
+      <img src="../media/ski.jpg" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Лыжи</h5>
+            <div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+</div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <img src="../media/snow.jpg" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Сноуборд</h5>
+           <div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+</div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <img src="../media/bike.jpeg" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Велосипед</h5>
+           <div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+</div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <img src="../media/wheel.jpg" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Колёса</h5>
+           <div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4">
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+        <div class="panel panel-primary setup-content" id="step-2">
+            <div class="panel-heading">
+                 <h3 class="panel-title">Какое количество вещей планируется хранить?</h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+  <option value="1">1</option>
+  <option value="2">2</option>
+  <option value="3">3</option>
+</select>
+
+        </div>
+
+        <div class="panel panel-primary setup-content" id="step-3">
+            <div class="panel-heading">
+                 <h3 class="panel-title">Выберите адрес склада хранения</h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+ <div class="m-2">
+                    <label for="FormControlCategory5" class="form-label"></label>
+                     <select class=" form-control form-control-md" name="locations" id="FormControlCategory5">
+                         <option value="none">Адрес склада</option>
+                         {% for storage in locations.storages %}
+                            <option value="{{ category.id }}">{{ storage.address }}</option>
+                         {% endfor %}
+                     </select>
+     <div>
+          <div class="panel panel-primary setup-content" id="step-4">
+            <div class="panel-heading">
+                 <h3 class="panel-title">Стоимость хранения</h3>
+            </div>
+            <div class="panel-body">
+     <div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
+  <div class="card-header">Тарифы</div>
+  <div class="card-body">
+    <p class="card-text">Здесь будут тарифы</p>
+  </div>
+
+         </div>
+                <div class="m-2">
+                    <label for="FormControlCategory3" class="form-label"></label>
+                    <select class=" form-control form-control-md" name="category" id="FormControlCategory3">
+                        <option value="none">Выбрать период хранения</option>
+
+                    </select>
+                </div>
+         </div>
+        </div>
+
+
+            <div class='mb-3'>
+
+                <button type="submit" class="btn btn-primary href="{% url 'checkout' %}" ">Перейти к оплате</button>
+            </div>
+  </div>
+</div>
+        </div>
+    </form>
+</div>
+            </div>
+        </div>
+</div>
+
+{% endblock %}
