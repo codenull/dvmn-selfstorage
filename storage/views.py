@@ -16,7 +16,7 @@ def show_checkout(request):
 
 def show_calc(request):
     context = {
-        'storages': json.dump(get_mock_storages())
+        'storages': json.dumps(get_mock_storages())
     }
     return render(request, 'calc.html', context)
 

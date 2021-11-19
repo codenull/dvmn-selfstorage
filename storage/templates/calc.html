@@ -55,7 +55,7 @@
 
 {% block footer_scripts %}
     <script id="storageData" type="application/json">
-        {% context.storages %}
+        {{ storages | safe}}
     </script>
     <script src="{% static 'scripts/calc.js' %}"></script>
 {% endblock %}
