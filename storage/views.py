@@ -3,6 +3,8 @@ from django.shortcuts import render
 
 from .models import Town
 from .models import Storage
+from .forms import CalcStorageForm
+
 
 
 def show_index(request):
@@ -30,7 +32,10 @@ def show_checkout(request):
 
 def show_calc(request):
     context = {
-        'storages': json.dumps(get_serialized_storages())
+        'storages': json.dumps(get_serialized_storages()),
+        'forms': {
+            'calc': CalcStorageForm()
+        }
     }
     return render(request, 'calc.html', context)
 
