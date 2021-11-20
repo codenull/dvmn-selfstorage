@@ -10,17 +10,16 @@
     <div class="col-lg-3">
         <div class="card mb-3">
             <h5 class="card-header border-secondary mx-auto">Калькулятор стоимости хранения</h5>
-            <form action="{% url 'checkout' %}" method="post">        
+            <form id="storageCalcForm" action="{% url 'checkout' %}" method="post">        
                 {% csrf_token %}
         
                 <div id="storage-calc" class="d-grid gap-2 col-10 mx-auto m-2">
         
-                    <select id="selectedStorage" class="form-select" value="0">
+                    <select id="selectedStorage" name="storage_id" class="form-select" value="0">
                     </select>
         
-                    <label for="storageTime" class="form-label">Период хранения (месяц): <span
-                            id="storageTimeLabel">1</span></label>
-                    <input id="storageTime" type="range" min="1" max="12" step="1" value="3" list="timeMarks">
+                    <label for="storageTime" class="form-label">Период хранения (месяц): <span id="storageTimeLabel">1</span></label>
+                    <input id="storageTime"  name="rent_month" type="range" min="1" max="12" step="1" value="3" list="timeMarks">
                     <datalist id="timeMarks">
                         <option>1</option>
                         <option>3</option>
@@ -30,7 +29,7 @@
                     </datalist>
         
                     <label for="storageSize" class="form-label">Площад (м2): <span id="storageSizeLabel">1</span></label>
-                    <input id="storageSize" type="range" min="1" max="20" step="1" value="0" list="sizeMarks">
+                    <input id="storageSize" name="storage_size" type="range" min="1" max="20" step="1" value="0" list="sizeMarks">
                     <datalist id="sizeMarks">
                         <option>1</option>
                         <option>5</option>
