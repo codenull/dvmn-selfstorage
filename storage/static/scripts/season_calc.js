@@ -1,8 +1,8 @@
-const inventoryChoice = document.querySelector('#id_inventory');
+const inventoryRadios = document.querySelectorAll('input[name="inventory"]');
+const storageRadios = document.querySelectorAll('input[name="storage"]');
 const quantityBlock = document.querySelector('#quantity_block');
 const quantity = document.querySelector('#id_quantity');
 const storageBlock = document.querySelector('#storage_block');
-const storageChoice = document.querySelector('#id_storage');
 const pricesBlock = document.querySelector('#prices_block');
 const startDate = document.querySelector('#id_start_service');
 const endDate = document.querySelector('#id_end_service');
@@ -10,9 +10,10 @@ const dateBlock = document.querySelector('#date_block');
 const totalPrice = document.querySelector('#totalPrice');
 const totalPriceBlock = document.querySelector('#total_price_block');
 const goToPaymentButton = document.querySelector('#go_to_payment');
- 
-let inventory;
-let storage;
+
+// здесь храним и динамически обновляем
+// выбранные пользователем опции инвентаря и склада
+const checkedStorageAndInventory = { storage: null, inventory: null };
 
 const calcTotalPrice = async () => {
     const start = startDate.value;
@@ -25,28 +26,49 @@ const calcTotalPrice = async () => {
     );
     const response = await fetch(`/get_price/${start}/${end}`);
     const { months, weeks } = await response.json();
-    // console.log(
-    //     'Кол-во месяцев хранения - ', months,
-    //     '\nЦена за месяцы - ', monthPrice,
-    //     '\nКол-во недель хранения - ', weeks,
-    //     '\nЦена за недели -', weekPrice
-    // );
     const price = (months * monthPrice + weeks * weekPrice) * quantity.value;
-    // console.log('Цена - ', price);
     totalPrice.innerHTML = `${price}&#8381;`;
-    return months * monthPrice + weeks * weekPrice;
 }
 
-const showQuantity = () => {
-    console.log('сработал обработчик showQuantity')
-    quantityBlock.style.display = 'block';
-}
+const getInventoryPrice = async () => {
+    const {storage, inventory} = checkedStorageAndInventory;
+    const response = await fetch(`/inventory_price/${storage}/${inventory}`);
+    const { weekPrice, monthPrice } = await response.json();
+    document.querySelector('#weekPrice').innerHTML = `${weekPrice}&#8381;`;
+    document.querySelector('#monthPrice').innerHTML = `${monthPrice}&#8381;`;
+  }
 
-const setStartDateAndCalcPrice = async () => {
-    console.log('Работает setStartDateAndCalcPrice инпут на изменение начальной даты');
+// инвентарь
+const setInventory = checkedRadio => {
+    checkedStorageAndInventory.inventory = checkedRadio;
+    if (quantityBlock.style.display === 'none') {
+        quantityBlock.style.display = 'block';
+    }
+    if (checkedStorageAndInventory.storage) {
+        getInventoryPrice();
+        if (startDate.value && endDate.value) { calcTotalPrice(); }
+    }
+}
+// количество товара
+const setQuantity = () => { 
+    storageBlock.style.display = "block";
+    if (startDate.value && endDate.value) { calcTotalPrice(); }
+}
+// склады
+const setStorage = checkedStorage => {
+    checkedStorageAndInventory.storage = checkedStorage;
+    getInventoryPrice();
+    if (dateBlock.style.display === "none") {
+        dateBlock.style.display = "block";
+        pricesBlock.style.display = "block";
+    }
+    if (startDate.value && endDate.value) { calcTotalPrice(); }
+};
+// дата начала хранения
+const setStartDate = () => {
     // получаем значение даты начала хранения, которую установил пользователь
     const startDateValue = new Date(startDate.value);
-    // получаем объект даты для минимально возможного времени аренды
+    // получаем объект даты для минимально возможного времени аренды (1 неделя)
     const minEndDate = new Date(startDateValue.getTime() + 8.64e+7 * 7)
     // переопределяем значение валидатора в теге
     endDate.setAttribute("min", minEndDate.toISOString().split('T')[0]);
@@ -56,79 +78,40 @@ const setStartDateAndCalcPrice = async () => {
     }
     // вычисляем максимально возможное время аренды (+6 месяцев)
     const maxEndDate = new Date(
-        startDateValue.setMonth(startDateValue.getMonth()+6)
+        startDateValue.setMonth(startDateValue.getMonth() + 6)
     );
     // переопределяем значение валидатора в теге
     endDate.setAttribute("max", maxEndDate.toISOString().split('T')[0]);
     if (startDate.value && endDate.value) {
-        await calcTotalPrice();
-        totalPriceBlock.style.display = "block";
-        goToPaymentButton.style.display = "block";
-    }
-}
-
-const getInventoryPrice = async() => {
-    const getStorageChecked = () => {
-      const result = document.querySelector('input[name="storage"]:checked');
-      if (!result) { return getStorageChecked(); }
-      return result;
-    }
-    const StorageChecked = getStorageChecked();
-    const inventoryChecked = document.querySelector(
-        'input[name="inventory"]:checked'
-    )
-    storage = StorageChecked?.value;
-    inventory = inventoryChecked?.value;
-    const response = await fetch(`/inventory_price/${storage}/${inventory}`);
-    const { weekPrice, monthPrice } = await response.json();
-    return [ weekPrice, monthPrice ]
-  }
-
-const calcChangedInventoryPrice = async () => {
-    console.log('сработал обработчик calcChangedInventoryPrice')
-    if (storage) {
-        const [weekPrice, monthPrice] = await getInventoryPrice();
-        document.querySelector('#weekPrice').innerHTML = `${weekPrice}&#8381;`;
-        document.querySelector('#monthPrice').innerHTML = `${monthPrice}&#8381;`;
         calcTotalPrice();
-      }
-}
-
-const calcPriceCheckedStorage = async () => {
-    console.log('Сработал обработчик calcPriceCheckedStorage');
-    if (document.querySelector('input[name="storage"]:checked')) {
-        const [weekPrice, monthPrice] = await getInventoryPrice();
-        document.querySelector('#weekPrice').innerHTML = `${weekPrice}&#8381;`;
-        document.querySelector('#monthPrice').innerHTML = `${monthPrice}&#8381;`;
-        
-        if (startDate.value && endDate.value) {
-            calcTotalPrice(); 
+        if (totalPriceBlock.style.display === "none") {
+            totalPriceBlock.style.display = "block";
+            goToPaymentButton.style.display = "block";
         }
-        pricesBlock.style.display = "block";
-        dateBlock.style.display = "block";
     }
-};
-
-const calcPriceIfSetQuantity = async () => { 
-    console.log('сработал обработчик calcPriceIfSetQuantity');
-    storageBlock.style.display = "block";
+}
+// дата окончания хранения
+const setEndDate = () => {
     if (startDate.value && endDate.value) {
-        await calcTotalPrice();
+        calcTotalPrice();
+        if (totalPriceBlock.style.display === "none") {
+            totalPriceBlock.style.display = "block";
+            goToPaymentButton.style.display = "block";
+        }
     }
 }
 
-const calcPriceSetEndDate = async () => {
-    console.log('сработал обработчик calcPriceSetEndDate');
-    if (startDate.value && endDate.value) {
-        await calcTotalPrice();
-        totalPriceBlock.style.display = "block";
-        goToPaymentButton.style.display = "block";
-    }
-}
-
-inventoryChoice.addEventListener('click', showQuantity);
-inventoryChoice.addEventListener('click', calcChangedInventoryPrice);
-quantity.addEventListener('input', calcPriceIfSetQuantity);
-storageChoice.addEventListener('click', calcPriceCheckedStorage);
-startDate.addEventListener('input', setStartDateAndCalcPrice);
-endDate.addEventListener('input', calcPriceSetEndDate);
+// слушатели
+inventoryRadios.forEach(radio => {
+    radio.addEventListener('change', 
+        event => { setInventory(event.target.value) }
+    )
+});
+storageRadios.forEach(radio => {
+    radio.addEventListener('change', 
+        event => { setStorage(event.target.value) }
+    )
+});
+quantity.addEventListener('input', setQuantity);
+startDate.addEventListener('input', setStartDate);
+endDate.addEventListener('input', setEndDate);
