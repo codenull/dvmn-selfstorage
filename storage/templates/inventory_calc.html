@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+      ul {
+        list-style-type: none;
+        width: fit-content;
+      }
+      * { font-family: Calibri; border: green dotted 1px;}
+    </style>
+</head>
+<body>
+  <form method="POST" style="border: solid 1px black;">
+    {% csrf_token %}
+    <div
+    style="display: block; padding: 5px; margin: 10px; border: dotted red 1px;">
+      {{ form.inventory.label }}
+      {{ form.inventory }}
+    </div>
+
+    <div
+    style="display: none; padding: 5px; margin: 10px; border: dotted red 1px;"
+    id="quantity_block">
+      {{ form.quantity.label_tag }}
+      {{ form.quantity }}
+    </div>
+
+    <div
+    style="display: none; padding: 5px; margin: 10px; border: dotted red 1px;"
+    id="storage_block">
+      {{ form.storage.label_tag }}
+      {{ form.storage }}
+    </div>
+
+    <div style="display: none; padding: 5px; margin: 10px; border: dotted red 1px;"
+    id="prices_block">
+      <p style="margin-top: 0;">Стоимость хранения одной единицы (одного комплекта)</p>
+      <p>
+        1 неделя: <span id="weekPrice"></span>
+      </p>
+      <p>
+        1 месяц: <span id="monthPrice"></span>
+      </p>
+    </div>
+
+    <div style="display: none; padding: 5px; margin: 10px; border: dotted red 1px;"
+    id="date_block">
+    <p style="margin-top: 0;">Период хранения: от 1 недели до 6 месяцев</p>
+      {{ form.start_service.label_tag }}
+      {{ form.start_service }}
+      {{ form.end_service.label_tag }}
+      {{ form.end_service }}
+    </div>
+
+    <div style="display: none; padding: 5px; margin: 10px; border: dotted red 1px;"
+    id="total_price_block">
+      <p>Цена хранения: <span id="totalPrice"></span></p>
+    </div>
+  
+    <div style="display: none; padding: 5px; margin: 10px; border: dotted red 1px;"
+    id="go_to_payment">
+      <button type="submit">
+        Перейти к оплате
+      </button>
+    </div>
+  </form>
+  <script src="{% static 'scripts/season_calc.js' %}">
+  </script>
+</body>
+</html>
