@@ -1,7 +1,12 @@
+import datetime
 import json
-from django.shortcuts import render
 
-from .models import Town
+from django.http.response import JsonResponse
+from django.shortcuts import get_object_or_404, render
+import monthdelta
+
+from .forms import InventoryOrderForm
+from .models import InventoryPriceList, Town
 from .models import Storage
 
 
@@ -40,3 +45,29 @@ def get_serialized_storages():
     return storages
 
 
+def inventory_calc(request):
+    form = InventoryOrderForm()
+    return render(
+        request,
+        template_name='inventory_calc.html',
+        context={'form': form}
+    )
+
+
+def calc_total_price(request, start, end):
+    start = datetime.datetime.strptime(start, '%Y-%m-%d')
+    end = datetime.datetime.strptime(end, '%Y-%m-%d')
+    delta = monthdelta.monthmod(start, end)
+    months = delta[0].months
+    weeks = round(delta[1].days / 7)
+    return JsonResponse({"months":months,"weeks":weeks})
+
+
+def get_inventory_price(request, storage_id, inventory_id):
+    inventory_prices = get_object_or_404(
+        InventoryPriceList, storage= storage_id, inventory=inventory_id
+    )
+    return JsonResponse(
+        {'weekPrice': inventory_prices.price_per_week,
+         'monthPrice': inventory_prices.price_per_month}
+    )
