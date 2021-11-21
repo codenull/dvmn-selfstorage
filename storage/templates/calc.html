@@ -7,14 +7,15 @@
 {% block content %}
 
 <div class="row justify-content-center">
-    <div class="col-lg-3">
-        <div class="card mb-3">
+    <div class="col-lg-3 mb-3">
+        <div class="card md-3">
+            <div class="card-header border-secondary mx-auto">
 
-            <h5 class="card-header border-secondary mx-auto">Калькулятор стоимости хранения</h5>
+            <h5>Калькулятор стоимости хранения</h5>
             {% csrf_token %}
-
+            </div>
             <div id="storage-calc" class="d-grid gap-2 col-10 mx-auto m-2">
-
+                <label class="form-label">Выберите склад хранения:</label>
                 <select id="selectedStorage" class="form-select" value="0">
                     <!-- <option selected>Выберите склад</option> -->
                 </select>
@@ -30,7 +31,7 @@
                     <option>12</option>
                 </datalist>
 
-                <label for="storageSize" class="form-label">Площад (м2): <span id="storageSizeLabel">1</span></label>
+                <label for="storageSize" class="form-label">Площадь (м2): <span id="storageSizeLabel">1</span></label>
                 <input id="storageSize" type="range" min="1" max="20" step="1" value="0" list="sizeMarks">
                 <datalist id="sizeMarks">
                     <option>1</option>
