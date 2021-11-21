@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,46 +22,38 @@
 </head>
 <body>
 <!--================Header Menu Area =================-->
+
 <header class="header_area">
     <div class="main_menu">
-        <nav class="navbar navbar-expand-lg navbar-light mb-3" style="background-color:antiquewhite">
-            <div class="container box_1620 mb-4">
+        <nav class="rounded navbar navbar-expand-md navbar-light mb-3 fixed-top shadow-lg p-3 bg-body rounded">
+            <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <a class="navbar-brand logo_h" href="{% url 'index' %}"><img src='../..{% static "img/logo.png" %}'
-                                                                             alt="Logo image"></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse"
-                        data-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+                                                                             alt="Logo image" class="d-inline-block"> </a>
+            </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
-                    <ul class="nav navbar-nav menu_nav justify-content-center">
-                        <nav class="navbar">
-                            <div class="container-fluid">
-                                <a class="navbar-brand" href="{% url 'calc' %}"><b>Калькулятор</b></a>
-                            </div>
-                        </nav>
-                        <nav class="navbar">
-                            <div class="container-fluid">
-                                <a class="navbar-brand" href="{% url 'season' %}"><b>Сезонное хранение</b></a>
-                            </div>
-                        </nav>
-                </div>
+                     <div class="container-fluid">
+                         <ul class="navbar-nav me-auto mb-2 md-lg-5">
+
+                                <a class="navbar-brand" href="{% url 'index' %}#address"><h3>Адреса складов</h3></a>
+                                <a class="navbar-brand" href="{% url 'calc' %}"><h3>Калькулятор тарифов</h3></a>
+                                <a class="navbar-brand" href="{% url 'season' %}"><h3>Сезонное хранение</h3></a>
+                         </ul>
+                     </div>
             </div>
         </nav>
     </div>
 </header>
+
 <!--================Header Menu Area =================-->
 {% block content %}
 {% endblock content %}
 <!--================ Start Footer Area =================-->
-<footer class="footer-area section-padding">
-    <div class="container">
-
-    </div>
+<footer class="text-muted py-5">
+  <div class="container">
+    <p class="float-end mb-1">
+<p>Сайт создан в рамках учебного проекта <a href="https://dvmn.org/">Dvmn.org</a></p>
+  </div>
 </footer>
 <!--================ End Footer Area =================-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
