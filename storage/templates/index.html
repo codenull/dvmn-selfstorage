@@ -1,78 +1,72 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
-<title>
-    Сервис хранения SelfStorage
-</title>
+    <title>
+        Сервис хранения SelfStorage
+    </title>
 {% endblock %}
 {% block content %}
 
-
-
-<div id="carouselExampleControlsNoTouching" class="carousel slide" data-bs-interval="false" style="font-size:xxx-large">
-  <div class="carousel-inner fs-1 justify">
-    <div class="carousel-item active bg-light" >
-      <img src='../..{% static "img/images/warehouse.jpg" %}' class="d-block w-75" alt="Warehouse">
-        <div class="carousel-caption text-dark bg-light rounded" style="opacity:90%" >
-        <h1>Что такое SELFSTORAGE?</h1>
-        <p>SELFSTORAGE – это молодая компания, предлагающая услуги СВХ физическим и
-                    юридическим лицам на любой срок – от 1 недели до 12 месяцев.</p>
+    <div id="carouselExampleControlsNoTouching" class="carousel carousel-dark slide" data-bs-interval="false" style="font-size:xxx-large">
+      <div class="carousel-inner fs-1 justify">
+        <div class="carousel-item active bg-light" >
+          <img src='../..{% static "img/images/warehouse.jpg" %}' class="d-block w-75" alt="Warehouse">
+            <div class="carousel-caption text-dark bg-light rounded" style="opacity:90%" >
+            <h1>Что такое SELFSTORAGE?</h1>
+            <p>SELFSTORAGE – это молодая компания, предлагающая услуги СВХ физическим и
+                        юридическим лицам на любой срок – от 1 недели до 12 месяцев.</p>
+          </div>
+        </div>
+        <div class="carousel-item bg-light">
+          <img src='../..{% static "img/images/storage_1.jpg" %}' class="d-block w-75" alt="Storage1">
+            <div class="carousel-caption text-dark bg-light rounded mb-5" style="opacity:85%" >
+            <h1>Для чего нужны боксы для хранения?</h1>
+            <p>Современная жизнь диктует свои условия,
+                        человек сталкивается с постоянной необходимостью приобретения новых вещей. Их менее совершенные и
+                        более громоздкие, но все еще имеющие ценность предшественники занимают очень много места, а лишнее
+                        загромождение в небольшом доме никому не нужно. Для предметов, которые все еще нужны, но не
+                        используются часто, существуют боксы индивидуального хранения, приспособленные для полного
+                        обеспечения сохранности самых разных вещей.</p>
+          </div>
+        </div>
+        <div class="carousel-item bg-light">
+          <img src='../..{% static "img/images/storage_2.jpg" %}' class="d-block w-75" alt="Storage2">
+            <div class="carousel-caption text-dark bg-light rounded" style="opacity:90%">
+            <h1>И как давно такие услуги существуют?</h1>
+            <p>Услуга появилась еще 50 лет назад в США. Сегодня там существует более 50 000 складов. Такая практика
+                        со временем распространилась в Западную Европу, а в начале 21 века стала давать ростки и в
+                        восточноевропейских странах. Склады индивидуального хранения рано или поздно должны были появиться в
+                        России – острая необходимость в них была, кажется, всегда. Современному россиянину уже не нужно
+                        думать, куда зимние шины летом или велосипед, когда на улице снег.</p>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="carousel-item bg-light">
-      <img src='../..{% static "img/images/storage_1.jpg" %}' class="d-block w-75" alt="Storage1">
-        <div class="carousel-caption text-dark bg-light rounded mb-5" style="opacity:85%" >
-        <h1>Для чего нужны боксы для хранения?</h1>
-        <p>Современная жизнь диктует свои условия,
-                    человек сталкивается с постоянной необходимостью приобретения новых вещей. Их менее совершенные и
-                    более громоздкие, но все еще имеющие ценность предшественники занимают очень много места, а лишнее
-                    загромождение в небольшом доме никому не нужно. Для предметов, которые все еще нужны, но не
-                    используются часто, существуют боксы индивидуального хранения, приспособленные для полного
-                    обеспечения сохранности самых разных вещей.</p>
-      </div>
-    </div>
-    <div class="carousel-item bg-light">
-      <img src='../..{% static "img/images/storage_2.jpg" %}' class="d-block w-75" alt="Storage2">
-        <div class="carousel-caption text-dark bg-light rounded" style="opacity:90%">
-        <h1>И как давно такие услуги существуют?</h1>
-        <p>Услуга появилась еще 50 лет назад в США. Сегодня там существует более 50 000 складов. Такая практика
-                    со временем распространилась в Западную Европу, а в начале 21 века стала давать ростки и в
-                    восточноевропейских странах. Склады индивидуального хранения рано или поздно должны были появиться в
-                    России – острая необходимость в них была, кажется, всегда. Современному россиянину уже не нужно
-                    думать, куда зимние шины летом или велосипед, когда на улице снег.</p>
-      </div>
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
-
-
-
-<div class="row p-3 bg-light">
-    <div id="map" class="z-depth-1-half map-container-6" style="height: 500px; max-width: 600px">
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
     </div>
 
-    <div class="font-monospace fs-3" style="width: 40rem;">
-      <a class="nav-link text-dark" href="#address"><h2>Наши адреса</h2></a>
-        <ul>
-            {% for storage in locations.storages %}
-            <li>{{ storage.address }}</li>
-            {% endfor %}
-        </ul>
-    </>
-</div>
-</div>
+    <div class="row p-3">
+        <div id="map" class="z-depth-1-half map-container-6" style="height: 500px; max-width: 600px">
+        </div>
 
+        <div class="font-monospace fs-3" style="width: 40rem;">
+          <a class="nav-link text-dark" href="#address"><h2>Наши адреса</h2></a>
+            <ul>
+                {% for storage in locations.storages %}
+                <li>{{ storage.address }}</li>
+                {% endfor %}
+            </ul>
+    </div>
+    </div>
 
 {% endblock %}
 {% block footer_scripts %}
-{{ locations|json_script:"storage-locations" }}
-<script src="{% static 'scripts/map.js' %}"></script>
+    {{ locations|json_script:"storage-locations" }}
+    <script src="{% static 'scripts/map.js' %}"></script>
 {% endblock %}
