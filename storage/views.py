@@ -34,12 +34,20 @@ def show_season(request):
 
 
 def show_checkout(request: HttpRequest):
-    storage = None
     if request.method != 'POST':
         return HttpResponseNotFound('<h1>Page not found</h1>')
 
+    storage = {}
+    if request.POST.get('source_page', None) == 'calc':
+        storage = {
+            'id': request.POST.get('storage_id'),
+            'size': request.POST.get('storage_size'),
+            'time': request.POST.get('storage_time'),
+        }
+    
     context = {
         'price': 100,
+        'storage': storage,
         'forms': {
             'order': OrderForm()
         }

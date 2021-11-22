@@ -17,6 +17,10 @@
                         
                         {% csrf_token %}
 
+                        <input type="hidden" name="storage_id" value="{{ storage.id }}">
+                        <input type="hidden" name="storage_size" value="{{ storage.size }}">
+                        <input type="hidden" name="storage_time" value="{{ storage.time }}">
+
                         <div class="panel panel-primary setup-content" id="step-4">
                             <!-- <div class="panel-heading">
                                 <h3 class="panel-title"></h3>
