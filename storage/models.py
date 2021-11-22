@@ -82,6 +82,9 @@ class Inventory(models.Model):
         verbose_name = 'инвентарь для хранения'
         verbose_name_plural = 'хранимые вещи'
 
+    def __str__(self):
+        return self.name
+
 
 class InventoryPriceList(models.Model):
     storage = models.ForeignKey(to=Storage,
@@ -92,6 +95,13 @@ class InventoryPriceList(models.Model):
                                   verbose_name='инвентарь')
     price_per_week = models.PositiveIntegerField(verbose_name='цена за неделю')
     price_per_month = models.PositiveIntegerField(verbose_name='цена за месяц')
+
+    class Meta:
+        verbose_name = 'инвентарь для хранения - цена'
+        verbose_name_plural = 'прайс по инвентарю'
+
+    def __str__(self):
+        return f'{self.storage.address} - {self.inventory.name}'
 
 
 class Order(models.Model):

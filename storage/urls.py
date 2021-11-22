@@ -9,4 +9,5 @@ urlpatterns = [path('', views.show_index, name='index'),
                path('checkout', views.show_checkout, name='checkout'),
                path('calc', views.show_calc, name='calc'),
 
-               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)\
+              + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
