@@ -75,9 +75,15 @@ def get_serialized_storages():
     storages = [storage.serialize() for storage in Storage.objects.all()]
     return storages
 
+
 def show_order(request):
     return render(request, 'order.html')
 
+
+def create_order(request):
+    return JsonResponse({
+        'message': 'Аренда успешно оформлена.'
+    })
 
 def inventory_calc(request):
     form = InventoryOrderForm()
