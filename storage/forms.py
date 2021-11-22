@@ -44,12 +44,10 @@ class InventoryOrderForm(forms.Form):
         )
     )
 
-#TODO: путаница с импортом forms.
-from django import forms
 class CalcStorageForm(forms.Form):
     storage_choices = ((storage.pk, str(storage))
                        for storage in Storage.objects.all())
-    selected_storage = forms.ChoiceField(
+    selected_storage = fields.ChoiceField(
         choices=storage_choices,
         label='',
         widget=Select(attrs={
@@ -58,7 +56,7 @@ class CalcStorageForm(forms.Form):
             'value': 0
         })
     )
-    storage_time = forms.IntegerField(
+    storage_time = fields.IntegerField(
         min_value=1, max_value=12,
         widget=NumberInput(attrs={
             'type': 'range',
@@ -68,7 +66,7 @@ class CalcStorageForm(forms.Form):
             'value': 3,
             'list': 'timeMarks'
         }))
-    storage_size = forms.IntegerField(
+    storage_size = fields.IntegerField(
         min_value=1, max_value=20,
         widget=NumberInput(attrs={
             'type': 'range',
@@ -85,3 +83,17 @@ class CalcStorageForm(forms.Form):
             'storage_size',
             'storage_time',
         )
+
+
+class RegistrationForm(forms.Form):
+    client_first_name = ''
+    client_last_name = ''
+    client_patronymic = ''
+    client_phonenumber = ''
+    client_passport = ''
+
+    card_num = ''
+    card_owner = ''
+    card_exp = ''
+    card_cvv = ''
+
