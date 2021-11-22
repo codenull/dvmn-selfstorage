@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
-    <title>Сервис хранения SelfStorage</title>
+<title>Сервис хранения SelfStorage</title>
 {% endblock %}
 
 {% block content %}
@@ -9,15 +9,20 @@
 <div class="row justify-content-center">
     <div class="col-lg-3">
         <div class="card mb-3">
-            
-            <div id="storage-calc" class="d-grid gap-2 col-10 mx-auto m-2">
-                <form method="POST" class="post-form">
-                    {% csrf_token %}
-                    {{ forms.calc.selected_storage }}
-            
-                    <label for="storage_time" class="form-label">Период хранения (месяц): <span
-                            id="storage_time_label">1</span></label>
-                    {{ forms.calc.storage_time }}
+
+            <h5 class="card-header border-secondary mx-auto">Калькулятор стоимости хранения</h5>
+            <form method="POST" class="post-form" action="{% url 'checkout' %}">
+                
+                {% csrf_token %}
+
+                <div id="storage-calc" class="d-grid gap-2 col-10 mx-auto m-2">
+
+                    <select name="storage_id" id="selectedStorage" class="form-select" value="0">
+                    </select>
+
+                    <label for="storageTime" class="form-label">Период хранения (месяц): <span
+                            id="storageTimeLabel">1</span></label>
+                    <input name="storage_time" id="storageTime" type="range" min="1" max="12" step="1" value="3" list="timeMarks">
                     <datalist id="timeMarks">
                         <option>1</option>
                         <option>3</option>
@@ -26,50 +31,25 @@
                         <option>12</option>
                     </datalist>
 
+                    <label for="storageSize" class="form-label">Площад (м2): <span
+                            id="storageSizeLabel">1</span></label>
+                    <input name="storage_size" id="storageSize" type="range" min="1" max="20" step="1" value="0" list="sizeMarks">
+                    <datalist id="sizeMarks">
+                        <option>1</option>
+                        <option>5</option>
+                        <option>10</option>
+                        <option>15</option>
+                        <option>20</option>
+                    </datalist>
 
-                    <div class="d-grid gap-2 col-6 mx-auto m-4">
-                        <button type="submit" class="btn btn-primary">Оформить</button>
-                    </div>
-                </form>
+                    <p><strong>Цена:</strong> <span id="storagePrice"></span></i></p>
                 </div>
-            
-            <hr>
-            <h5 class="card-header border-secondary mx-auto">Калькулятор стоимости хранения</h5>
-            {% csrf_token %}
 
-            <div id="storage-calc" class="d-grid gap-2 col-10 mx-auto m-2">
+                <div class="d-grid gap-2 col-6 mx-auto m-4">
+                    <input class="btn btn-primary" type="submit" value="Оформить">
+                </div>
 
-                <select id="selectedStorage" class="form-select" value="0">
-
-                </select>
-
-                <label for="storageTime" class="form-label">Период хранения (месяц): <span
-                        id="storageTimeLabel">1</span></label>
-                <input id="storageTime" type="range" min="1" max="12" step="1" value="3" list="timeMarks">
-                <datalist id="timeMarks">
-                    <option>1</option>
-                    <option>3</option>
-                    <option>6</option>
-                    <option>9</option>
-                    <option>12</option>
-                </datalist>
-
-                <label for="storageSize" class="form-label">Площад (м2): <span id="storageSizeLabel">1</span></label>
-                <input id="storageSize" type="range" min="1" max="20" step="1" value="0" list="sizeMarks">
-                <datalist id="sizeMarks">
-                    <option>1</option>
-                    <option>5</option>
-                    <option>10</option>
-                    <option>15</option>
-                    <option>20</option>
-                </datalist>
-
-                <p><strong>Цена:</strong> <span id="storagePrice"></span></i></p>
-            </div>
-
-            <div class="d-grid gap-2 col-6 mx-auto m-4">
-                <a class="btn btn-primary" href="{% url 'checkout' %}" role="button">Оформить</a>
-            </div>
+            </form>
 
         </div>
     </div>
@@ -79,7 +59,7 @@
 
 {% block footer_scripts %}
     <script id="storageData" type="application/json">
-        {{ storages | safe}}
-    </script>
+            {{ storages | safe}}
+        </script>
     <script src="{% static 'scripts/calc.js' %}"></script>
 {% endblock %}
