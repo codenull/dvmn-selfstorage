@@ -1,5 +1,6 @@
 import json
 from django.shortcuts import render
+from django.http import HttpRequest
 
 from .models import Town
 from .models import Storage
@@ -26,7 +27,12 @@ def show_season(request):
     return render(request, 'season.htlml')
 
 
-def show_checkout(request):
+def show_checkout(request: HttpRequest):
+    storage = None
+    if request.method == 'POST':
+        pass
+
+
     return render(request, 'checkout.html')
 
 
@@ -43,5 +49,8 @@ def show_calc(request):
 def get_serialized_storages():
     storages = [storage.serialize() for storage in Storage.objects.all()]
     return storages
+
+def show_order(request):
+    return render(request, 'order.html')
 
 
