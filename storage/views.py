@@ -35,7 +35,7 @@ def show_season(request):
 
 def show_checkout(request: HttpRequest):
     storage = None
-    if request.method == 'POST':
+    if request.method != 'POST':
         return HttpResponseNotFound('<h1>Page not found</h1>')
 
     context = {
