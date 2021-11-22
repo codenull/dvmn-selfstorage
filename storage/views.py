@@ -3,7 +3,7 @@ import json
 from django.shortcuts import render
 from django.http import HttpRequest
 
-from django.http.response import JsonResponse
+from django.http.response import HttpResponseNotFound, JsonResponse
 from django.shortcuts import get_object_or_404, render
 import monthdelta
 
@@ -36,7 +36,7 @@ def show_season(request):
 def show_checkout(request: HttpRequest):
     storage = None
     if request.method == 'POST':
-        pass
+        return HttpResponseNotFound('<h1>Page not found</h1>')
 
     context = {
         'price': 100,
