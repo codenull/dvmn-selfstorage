@@ -44,6 +44,7 @@ class InventoryOrderForm(forms.Form):
         )
     )
 
+#TODO: путаница с импортом forms.
 from django import forms
 class CalcStorageForm(forms.Form):
     storage_choices = ((storage.pk, str(storage))
