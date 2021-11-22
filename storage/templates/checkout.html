@@ -13,136 +13,147 @@
                 </div>
                 <div class="card-body">
                     <form>
-                         <div class="panel panel-primary setup-content" id="step-4">
-            <div class="panel-heading">
-                 <h3 class="panel-title"></h3>
-            </div>
-            <div class="panel-body">
-                  </div>
-            <div class=" mb-2">
-                <h5 class="card-title">Имя</h5>
-                <input class="form-control" id="InputFirstName" aria-describedby="nameHelp" placeholder="Иван" required>
-            </div>
-            <div class="mx-auto mb-3">
-                <h5 class="card-title">Фамилия</h5>
-                <input class="form-control" id="InputSecondName" aria-describedby="surnameHelp" placeholder="Иванов"
-                       required>
-            </div>
-
-            <div class="mx-auto mb-3">
-                <h5 class="card-title">Отчество</h5>
-                <input class="form-control" id="PatrName" aria-describedby="patrnameHelp" placeholder="Иванович"
-                       required>
-            </div>
-             <div class="mb-3">
-                <h5 class="card-title">Номер телефона</h5>
-                <input class="form-control" id="InputPhoneNumber" aria-describedby="phoneHelp"
-                       placeholder="+79991234567" required>
-            </div>
-             <div class="mb-3">
-                <h5 class="card-title">Серия и номер паспорта</h5>
-                <input class="form-control" id="InputPasNumber" aria-describedby="pasHelp"
-                       placeholder="4123 456789" required>
-            </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
-                    <label class="form-check-label" for="invalidCheck">Соглашаюсь на обработку персональных данных</label>
-                    <div class="invalid-feedback">
-                        Вы должны согласиться на обработку персональных данных для оформления заказа
-                    </div>
-                     <div class='mb-3'>
-                <button type="submit" class="btn btn-primary">Вввести платежные данные</button>
-            </div>
-                </div>
-            </div>
-        <div class="row">
-            <div class="col-md-8 mb-4">
-                <div class="card mb-4">
-                    <div class="row mb-4">
-                        <div class="col">
-                            <h5 class="card-title">Номер карты</h5>
-                            <input class="form-control" id="InpuCardNumber" aria-describedby="numberHelp"
-                                   placeholder="0000 0000 0000 0000" minlength="19" maxlength="19" required>
-                        </div>
-
-                        <div class="col">
-                            <h5 class="card-title">Имя держателя карты</h5>
-                            <input class="form-control" id="InputCardName" aria-describedby="nameHelp"
-                                   placeholder="IVAN IVANOV"
-                                   required>
-                            <small id="Help2" class="form-text text-muted ">Латинскими буквами, как на карте</small>
-                        </div>
-                    </div>
-                    <div class="row mb-4">
-                        <div class="col">
-                            <h5 class="card-title">Срок действия</h5>
-                            <input class="form-control" id="InputCardExp" aria-describedby="cartexpdHelp"
-                                   placeholder="MM/YY" minlength="5" maxlength="5" required>
-                        </div>
-
-                        <div class="col">
-                            <h5 class="card-title">CVV2/CVC2</h5>
-                            <input class="form-control" id="InputCvv" aria-describedby="cvvHelp" placeholder="123"
-                                   required>
-                            <small id="Help3" class="form-text text-muted ">Трехзначный код на обратной стороне
-                                карты</small>
-
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-4">
-                        <div class="card mb-4">
-                            <div class="card-header py-3">
-                                <h5 class="mb-0">Сумма заказа</h5>
+                        <div class="panel panel-primary setup-content" id="step-4">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"></h3>
                             </div>
-                            <div class="card-body">
-                                <ul class="list-group list-group-flush">
-                                    <input type="text" name="promocode" class="form-control" id="promo_code">
-                                    <input type="submit" class="btn btn-warning pull-right" value="Применить промокод">
+                            <div class="panel-body">
+                            </div>
+                            <div class=" mb-2">
+                                <h5 class="card-title">Имя</h5>
+                                <input class="form-control" id="InputFirstName" aria-describedby="nameHelp"
+                                    placeholder="Иван" required>
+                            </div>
+                            <div class="mx-auto mb-3">
+                                <h5 class="card-title">Фамилия</h5>
+                                <input class="form-control" id="InputSecondName" aria-describedby="surnameHelp"
+                                    placeholder="Иванов" required>
+                            </div>
 
-                                    <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
-                                        <div>
-                                            <strong>Итоговая сумма</strong>
+                            <div class="mx-auto mb-3">
+                                <h5 class="card-title">Отчество</h5>
+                                <input class="form-control" id="PatrName" aria-describedby="patrnameHelp"
+                                    placeholder="Иванович" required>
+                            </div>
+                            <div class="mb-3">
+                                <h5 class="card-title">Номер телефона</h5>
+                                <input class="form-control" id="InputPhoneNumber" aria-describedby="phoneHelp"
+                                    placeholder="+79991234567" required>
+                            </div>
+                            <div class="mb-3">
+                                <h5 class="card-title">Серия и номер паспорта</h5>
+                                <input class="form-control" id="InputPasNumber" aria-describedby="pasHelp"
+                                    placeholder="4123 456789" required>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                                <label class="form-check-label" for="invalidCheck">Соглашаюсь на обработку персональных
+                                    данных</label>
+                                <div class="invalid-feedback">
+                                    Вы должны согласиться на обработку персональных данных для оформления заказа
+                                </div>
+                                <div class='mb-3'>
+                                    <button type="submit" class="btn btn-primary">Вввести платежные данные</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8 mb-4">
+                                <div class="card mb-4">
+                                    <div class="row mb-4">
+                                        <div class="col">
+                                            <h5 class="card-title">Номер карты</h5>
+                                            <input class="form-control" id="InpuCardNumber"
+                                                aria-describedby="numberHelp" placeholder="0000 0000 0000 0000"
+                                                minlength="19" maxlength="19" required>
                                         </div>
-                                        <span>1000</span>
-                                    </li>
-                                </ul>
 
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal">
-                                    Оплатить
-                                </button>
+                                        <div class="col">
+                                            <h5 class="card-title">Имя держателя карты</h5>
+                                            <input class="form-control" id="InputCardName" aria-describedby="nameHelp"
+                                                placeholder="IVAN IVANOV" required>
+                                            <small id="Help2" class="form-text text-muted ">Латинскими буквами, как на
+                                                карте</small>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col">
+                                            <h5 class="card-title">Срок действия</h5>
+                                            <input class="form-control" id="InputCardExp"
+                                                aria-describedby="cartexpdHelp" placeholder="MM/YY" minlength="5"
+                                                maxlength="5" required>
+                                        </div>
 
-                                <!-- Modal -->
-                                <div class="modal fade" id="exampleModal" tabindex="-1"
-                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Спасибо за
-                                                    бронирование! </h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
+                                        <div class="col">
+                                            <h5 class="card-title">CVV2/CVC2</h5>
+                                            <input class="form-control" id="InputCvv" aria-describedby="cvvHelp"
+                                                placeholder="123" required>
+                                            <small id="Help3" class="form-text text-muted ">Трехзначный код на обратной
+                                                стороне
+                                                карты</small>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-4">
+                                        <div class="card mb-4">
+                                            <div class="card-header py-3">
+                                                <h5 class="mb-0">Сумма заказа</h5>
                                             </div>
-                                            <div class="modal-body">
-                                                Ваша оплата принята.
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                    Закрыть страницу
+                                            <div class="card-body">
+                                                <ul class="list-group list-group-flush">
+                                                    <input type="text" name="promocode" class="form-control"
+                                                        id="promo_code">
+                                                    <input type="submit" class="btn btn-warning pull-right"
+                                                        value="Применить промокод">
+
+                                                    <li
+                                                        class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                                                        <div>
+                                                            <strong>Итоговая сумма</strong>
+                                                        </div>
+                                                        <span>1000</span>
+                                                    </li>
+                                                </ul>
+
+                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                    data-bs-target="#exampleModal">
+                                                    Оплатить
                                                 </button>
-                                                <button type="button" class="btn btn-primary">Вернуться на главную
-                                                </button>
+
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="exampleModal" tabindex="-1"
+                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Спасибо
+                                                                    за
+                                                                    бронирование! </h5>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Ваша оплата принята.
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">
+                                                                    Закрыть страницу
+                                                                </button>
+                                                                <button type="button" class="btn btn-primary">Вернуться
+                                                                    на главную
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
 </section>
 
 {% endblock %}
