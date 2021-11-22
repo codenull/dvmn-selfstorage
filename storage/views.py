@@ -13,7 +13,6 @@ from .models import Storage
 from .forms import CalcStorageForm, OrderForm
 
 
-
 def show_index(request):
     town = Town.objects.get(name="Воронеж")
     locations = {"town": {"location": [town.longitude, town.latitude]},
@@ -30,7 +29,12 @@ def show_index(request):
 
 
 def show_season(request):
-    return render(request, 'season.htlml')
+    form = InventoryOrderForm()
+    context = {
+        'inventory_range': range(1, 13),
+        'form': form
+    }
+    return render(request, 'season.html', context)
 
 
 def show_checkout(request: HttpRequest):
@@ -38,7 +42,7 @@ def show_checkout(request: HttpRequest):
         return HttpResponseNotFound('<h1>Page not found</h1>')
 
     storage = get_object_or_404(Storage, pk=request.POST.get('storage_id'))
-    
+
     price = 0
     storage_box = {}
     if request.POST.get('source_page', None) == 'calc':
@@ -58,7 +62,6 @@ def show_checkout(request: HttpRequest):
     }
 
     return render(request, 'checkout.html', context)
-
 
 
 def show_calc(request):
@@ -85,6 +88,7 @@ def create_order(request):
         'message': 'Аренда успешно оформлена.'
     })
 
+
 def inventory_calc(request):
     form = InventoryOrderForm()
     return render(
@@ -100,12 +104,12 @@ def calc_total_price(request, start, end):
     delta = monthdelta.monthmod(start, end)
     months = delta[0].months
     weeks = round(delta[1].days / 7)
-    return JsonResponse({"months":months,"weeks":weeks})
+    return JsonResponse({"months": months, "weeks": weeks})
 
 
 def get_inventory_price(request, storage_id, inventory_id):
     inventory_prices = get_object_or_404(
-        InventoryPriceList, storage= storage_id, inventory=inventory_id
+        InventoryPriceList, storage=storage_id, inventory=inventory_id
     )
     return JsonResponse(
         {'weekPrice': inventory_prices.price_per_week,

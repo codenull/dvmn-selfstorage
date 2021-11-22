@@ -12,13 +12,16 @@
             <div class="card-header border-secondary mx-auto">
 
             <h5 class="card-header border-secondary mx-auto">Калькулятор стоимости хранения</h5>
+            </div>
             <form method="POST" class="post-form" action="{% url 'checkout' %}">
                 
                 {% csrf_token %}
+
                 <input name="source_page" id="sourcePage" type="hidden" value="calc">
 
                 <div id="storage-calc" class="d-grid gap-2 col-10 mx-auto m-2">
 
+                    <label for="selectedStorage">Выбрать адрес склада</label>
                     <select name="storage_id" id="selectedStorage" class="form-select" value="0">
                     </select>
 
@@ -33,7 +36,7 @@
                         <option>12</option>
                     </datalist>
 
-                    <label for="storageSize" class="form-label">Площад (м2): <span
+                    <label for="storageSize" class="form-label">Площадь (м2): <span
                             id="storageSizeLabel">1</span></label>
                     <input name="storage_size" id="storageSize" type="range" min="1" max="20" step="1" value="0" list="sizeMarks">
                     <datalist id="sizeMarks">
