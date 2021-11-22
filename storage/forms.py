@@ -26,11 +26,20 @@ class CalcStorageForm(forms.Form):
             'value': 3,
             'list': 'timeMarks'
         }))
-    # storage_size = forms.IntegerField(type='range', min_value=1, max_value=20)
+    storage_size = forms.IntegerField(
+        min_value=1, max_value=20,
+        widget=NumberInput(attrs={
+            'type': 'range',
+            'min': 1,
+            'max': 20,
+            'step': 1,
+            'value': 3,
+            'list': 'sizeMarks'
+        }))
 
     class Meta:
         fields = (
             'selected_storage',
-            # 'storage_size',
+            'storage_size',
             'storage_time',
         )
