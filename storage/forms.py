@@ -1,6 +1,7 @@
 import datetime
 import monthdelta
 
+from phonenumber_field.formfields import PhoneNumberField
 from django.forms import fields, forms, models, widgets, Select, NumberInput
 from .models import Inventory, Storage
 
@@ -90,8 +91,8 @@ class OrderForm(forms.Form):
         label='Имя', 
         max_length=50, 
         widget=widgets.TextInput(attrs={
-            'class': 'form-control',
             'id': 'InputFirstName',
+            'class': 'form-control',
             'aria-describedby': 'nameHelp',
             'placeholder': 'Иван',
             'required': ''
@@ -101,19 +102,19 @@ class OrderForm(forms.Form):
         label='Фамилия', 
         max_length=50, 
         widget=widgets.TextInput(attrs={
-            'class': 'form-control',
             'id': 'InputSecondName',
+            'class': 'form-control',
             'aria-describedby': 'surnameHelp',
             'placeholder': 'Иванов',
             'required': ''
         }))
     
     client_patronymic = fields.CharField(
-        label='Имя', 
+        label='Отчество', 
         max_length=50, 
         widget=widgets.TextInput(attrs={
-            'class': 'form-control',
             'id': 'PatrName',
+            'class': 'form-control',
             'aria-describedby': 'patrnameHelp',
             'placeholder': 'Иванович',
             'required': ''
@@ -123,13 +124,35 @@ class OrderForm(forms.Form):
         label='Дата рождения',
         widget=widgets.DateInput(
             attrs={
+                'id': 'InputBirthday',
                 'type': 'date',
                 'class': 'form-control',
             }
         )
     )
-    client_phonenumber = ''
-    client_passport = ''
+    
+    client_passport = fields.CharField(
+        label='Паспорт', 
+        max_length=50, 
+        widget=widgets.TextInput(attrs={
+            'id': 'InputPasNumber',
+            'class': 'form-control',
+            'aria-describedby': 'patrnameHelp',
+            'placeholder': '4123 456789',
+            'required': ''
+        }))
+    
+    client_phonenumber = PhoneNumberField(
+        widget=fields.TextInput(attrs={
+            'id': 'InputPhone',
+            'placeholder': '',
+            'class': 'form-control',
+            'aria-describedby': 'phoneHelp',
+            'placeholder': '+79991234567',
+            'required': ''
+        }))
+
+    
 
     card_num = ''
     card_owner = ''

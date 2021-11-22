@@ -18,9 +18,9 @@
                         {% csrf_token %}
 
                         <div class="panel panel-primary setup-content" id="step-4">
-                            <div class="panel-heading">
+                            <!-- <div class="panel-heading">
                                 <h3 class="panel-title"></h3>
-                            </div>
+                            </div> -->
 
                             <div class=" mb-2">
                                 <h5 class="card-title">Имя</h5>
@@ -44,14 +44,12 @@
 
                             <div class="mb-3">
                                 <h5 class="card-title">Серия и номер паспорта</h5>
-                                <input class="form-control" id="InputPasNumber" aria-describedby="pasHelp"
-                                    placeholder="4123 456789" required>
+                                {{ forms.order.client_passport }}
                             </div>
 
                             <div class="mb-3">
                                 <h5 class="card-title">Номер телефона</h5>
-                                <input class="form-control" id="InputPhoneNumber" aria-describedby="phoneHelp"
-                                    placeholder="+79991234567" required>
+                                {{ forms.order.client_phonenumber }}
                             </div>
 
                             <div class="form-check">
@@ -61,9 +59,9 @@
                                 <div class="invalid-feedback">
                                     Вы должны согласиться на обработку персональных данных для оформления заказа
                                 </div>
-                                <div class="mb-3">
+                                <!-- <div class="mb-3">
                                     <button type="submit" class="btn btn-primary">Вввести платежные данные</button>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div class="row">
@@ -106,7 +104,7 @@
                                     <div class="col-md-4 mb-4">
                                         <div class="card mb-4">
                                             <div class="card-header py-3">
-                                                <h5 class="mb-0">Сумма заказа</h5>
+                                                <h5 class="mb-0">Сумма заказа: <span>{{ price }} </span></h5>
                                             </div>
                                             <div class="card-body">
                                                 <ul class="list-group list-group-flush">

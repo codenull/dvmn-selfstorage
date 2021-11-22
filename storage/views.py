@@ -39,6 +39,7 @@ def show_checkout(request: HttpRequest):
         pass
 
     context = {
+        'price': 100,
         'forms': {
             'order': OrderForm()
         }
