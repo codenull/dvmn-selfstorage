@@ -40,24 +40,25 @@ def show_checkout(request: HttpRequest):
     storage = get_object_or_404(Storage, pk=request.POST.get('storage_id'))
     
     price = 0
-    storage_fields = {}
+    storage_box = {}
     if request.POST.get('source_page', None) == 'calc':
-        storage_fields = {
-            'id': storage.pk,
+        storage_box = {
+            'storage_id': storage.pk,
             'size': int(request.POST.get('storage_size')),
             'time': int(request.POST.get('storage_time')),
         }
-        price = storage.calc_price(storage_fields['size'], storage_fields['time'])
+        price = storage.calc_price(storage_box['size'], storage_box['time'])
 
     context = {
         'price': price,
-        'storage': storage_fields,
+        'storage_box': storage_box,
         'forms': {
             'order': OrderForm()
         }
     }
 
     return render(request, 'checkout.html', context)
+
 
 
 def show_calc(request):
