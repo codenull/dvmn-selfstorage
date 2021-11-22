@@ -37,17 +37,21 @@ def show_checkout(request: HttpRequest):
     if request.method != 'POST':
         return HttpResponseNotFound('<h1>Page not found</h1>')
 
-    storage = {}
-    if request.POST.get('source_page', None) == 'calc':
-        storage = {
-            'id': request.POST.get('storage_id'),
-            'size': request.POST.get('storage_size'),
-            'time': request.POST.get('storage_time'),
-        }
+    storage = get_object_or_404(Storage, pk=request.POST.get('storage_id'))
     
+    price = 0
+    storage_fields = {}
+    if request.POST.get('source_page', None) == 'calc':
+        storage_fields = {
+            'id': storage.pk,
+            'size': int(request.POST.get('storage_size')),
+            'time': int(request.POST.get('storage_time')),
+        }
+        price = storage.calc_price(storage_fields['size'], storage_fields['time'])
+
     context = {
-        'price': 100,
-        'storage': storage,
+        'price': price,
+        'storage': storage_fields,
         'forms': {
             'order': OrderForm()
         }
