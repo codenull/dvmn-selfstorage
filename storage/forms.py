@@ -1,8 +1,7 @@
 import datetime
 import monthdelta
 
-from django.forms import fields, forms, models, widgets
-
+from django.forms import fields, forms, models, widgets, Select, NumberInput
 from .models import Inventory, Storage
 
 
@@ -46,11 +45,6 @@ class InventoryOrderForm(forms.Form):
     )
 
 from django import forms
-from django.db.models import fields
-from django.forms import widgets, Select, NumberInput
-from .models import Storage
-
-
 class CalcStorageForm(forms.Form):
     storage_choices = ((storage.pk, str(storage))
                        for storage in Storage.objects.all())
