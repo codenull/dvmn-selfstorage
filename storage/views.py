@@ -10,7 +10,7 @@ import monthdelta
 from .forms import InventoryOrderForm
 from .models import InventoryPriceList, Town
 from .models import Storage
-from .forms import CalcStorageForm
+from .forms import CalcStorageForm, OrderForm
 
 
 
@@ -38,8 +38,13 @@ def show_checkout(request: HttpRequest):
     if request.method == 'POST':
         pass
 
+    context = {
+        'forms': {
+            'order': OrderForm()
+        }
+    }
 
-    return render(request, 'checkout.html')
+    return render(request, 'checkout.html', context)
 
 
 def show_calc(request):

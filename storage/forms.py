@@ -85,10 +85,40 @@ class CalcStorageForm(forms.Form):
         )
 
 
-class RegistrationForm(forms.Form):
-    client_first_name = ''
-    client_last_name = ''
-    client_patronymic = ''
+class OrderForm(forms.Form):
+    client_first_name = fields.CharField(
+        label='Имя', 
+        max_length=50, 
+        widget=widgets.TextInput(attrs={
+            'class': 'form-control',
+            'id': 'InputFirstName',
+            'aria-describedby': 'nameHelp',
+            'placeholder': 'Иван',
+            'required': ''
+        }))
+    
+    client_last_name = fields.CharField(
+        label='Фамилия', 
+        max_length=50, 
+        widget=widgets.TextInput(attrs={
+            'class': 'form-control',
+            'id': 'InputSecondName',
+            'aria-describedby': 'surnameHelp',
+            'placeholder': 'Иванов',
+            'required': ''
+        }))
+    
+    client_patronymic = fields.CharField(
+        label='Имя', 
+        max_length=50, 
+        widget=widgets.TextInput(attrs={
+            'class': 'form-control',
+            'id': 'PatrName',
+            'aria-describedby': 'patrnameHelp',
+            'placeholder': 'Иванович',
+            'required': ''
+        }))
+        
     client_phonenumber = ''
     client_passport = ''
 

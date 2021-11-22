@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
-<title>Оформление заказа</title>
+    <title>Оформление заказа</title>
 {% endblock %}
 {% block content %}
 <section>
@@ -15,38 +15,40 @@
                     
                     <form method="post" action="{% url 'order' %}">
                         
+                        {% csrf_token %}
+
                         <div class="panel panel-primary setup-content" id="step-4">
                             <div class="panel-heading">
                                 <h3 class="panel-title"></h3>
                             </div>
-                            <div class="panel-body">
-                            </div>
+
                             <div class=" mb-2">
                                 <h5 class="card-title">Имя</h5>
-                                <input class="form-control" id="InputFirstName" aria-describedby="nameHelp"
-                                    placeholder="Иван" required>
+                                {{ forms.order.client_first_name }}
                             </div>
+
                             <div class="mx-auto mb-3">
                                 <h5 class="card-title">Фамилия</h5>
-                                <input class="form-control" id="InputSecondName" aria-describedby="surnameHelp"
-                                    placeholder="Иванов" required>
+                                {{ forms.order.client_last_name }}
                             </div>
 
                             <div class="mx-auto mb-3">
                                 <h5 class="card-title">Отчество</h5>
-                                <input class="form-control" id="PatrName" aria-describedby="patrnameHelp"
-                                    placeholder="Иванович" required>
+                                {{ forms.order.client_patronymic }}
                             </div>
+
                             <div class="mb-3">
                                 <h5 class="card-title">Номер телефона</h5>
                                 <input class="form-control" id="InputPhoneNumber" aria-describedby="phoneHelp"
                                     placeholder="+79991234567" required>
                             </div>
+
                             <div class="mb-3">
                                 <h5 class="card-title">Серия и номер паспорта</h5>
                                 <input class="form-control" id="InputPasNumber" aria-describedby="pasHelp"
                                     placeholder="4123 456789" required>
                             </div>
+
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
                                 <label class="form-check-label" for="invalidCheck">Соглашаюсь на обработку персональных
