@@ -46,37 +46,41 @@ class InventoryOrderForm(forms.Form):
     )
 
 class CalcStorageForm(forms.Form):
-    storage_choices = ((storage.pk, str(storage))
-                       for storage in Storage.objects.all())
-    selected_storage = fields.ChoiceField(
-        choices=storage_choices,
-        label='',
-        widget=Select(attrs={
-            'class': 'form-select',
-            'id': 'selected_storage',
-            'value': 0
-        })
-    )
-    storage_time = fields.IntegerField(
-        min_value=1, max_value=12,
-        widget=NumberInput(attrs={
-            'type': 'range',
-            'min': 1,
-            'max': 12,
-            'step': 1,
-            'value': 3,
-            'list': 'timeMarks'
-        }))
-    storage_size = fields.IntegerField(
-        min_value=1, max_value=20,
-        widget=NumberInput(attrs={
-            'type': 'range',
-            'min': 1,
-            'max': 20,
-            'step': 1,
-            'value': 3,
-            'list': 'sizeMarks'
-        }))
+    
+    def __init__(self, **kwargs):
+        storage_choices = ((storage.pk, str(storage))
+                           for storage in Storage.objects.all())
+        self.selected_storage = fields.ChoiceField(
+            choices=storage_choices,
+            label='',
+            widget=Select(attrs={
+                'class': 'form-select',
+                'id': 'selected_storage',
+                'value': 0
+            })
+        )
+        self.storage_time = fields.IntegerField(
+            min_value=1, max_value=12,
+            widget=NumberInput(attrs={
+                'type': 'range',
+                'min': 1,
+                'max': 12,
+                'step': 1,
+                'value': 3,
+                'list': 'timeMarks'
+            }))
+        self.storage_size = fields.IntegerField(
+            min_value=1, max_value=20,
+            widget=NumberInput(attrs={
+                'type': 'range',
+                'min': 1,
+                'max': 20,
+                'step': 1,
+                'value': 3,
+                'list': 'sizeMarks'
+            }))
+
+        super().__init__(**kwargs)
 
     class Meta:
         fields = (
