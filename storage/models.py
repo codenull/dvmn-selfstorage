@@ -50,6 +50,10 @@ class Storage(models.Model):
                                           through='InventoryPriceList',
                                           verbose_name='хранимые вещи')
 
+    def calc_price(self, size, months):
+        if size <= 0 or months <= 0:
+            return 0
+        return (self.first_square_meter_price + (size - 1) * self.rest_meters_price) * months
     class Meta:
         verbose_name = 'склад'
         verbose_name_plural = 'склады'

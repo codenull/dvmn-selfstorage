@@ -3,7 +3,7 @@ import json
 from django.shortcuts import render
 from django.http import HttpRequest
 
-from django.http.response import JsonResponse
+from django.http.response import HttpResponseNotFound, JsonResponse
 from django.shortcuts import get_object_or_404, render
 import monthdelta
 
@@ -34,18 +34,31 @@ def show_season(request):
 
 
 def show_checkout(request: HttpRequest):
-    storage = None
-    if request.method == 'POST':
-        pass
+    if request.method != 'POST':
+        return HttpResponseNotFound('<h1>Page not found</h1>')
+
+    storage = get_object_or_404(Storage, pk=request.POST.get('storage_id'))
+    
+    price = 0
+    storage_box = {}
+    if request.POST.get('source_page', None) == 'calc':
+        storage_box = {
+            'storage_id': storage.pk,
+            'size': int(request.POST.get('storage_size')),
+            'time': int(request.POST.get('storage_time')),
+        }
+        price = storage.calc_price(storage_box['size'], storage_box['time'])
 
     context = {
-        'price': 100,
+        'price': price,
+        'storage_box': storage_box,
         'forms': {
             'order': OrderForm()
         }
     }
 
     return render(request, 'checkout.html', context)
+
 
 
 def show_calc(request):
@@ -62,9 +75,15 @@ def get_serialized_storages():
     storages = [storage.serialize() for storage in Storage.objects.all()]
     return storages
 
+
 def show_order(request):
     return render(request, 'order.html')
 
+
+def create_order(request):
+    return JsonResponse({
+        'message': 'Аренда успешно оформлена.'
+    })
 
 def inventory_calc(request):
     form = InventoryOrderForm()

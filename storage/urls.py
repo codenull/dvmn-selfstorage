@@ -13,4 +13,5 @@ urlpatterns = [
     path('inventory_price/<int:storage_id>/<int:inventory_id>', views.get_inventory_price),
     path('get_price/<str:start>/<str:end>', views.calc_total_price),
     path('order', views.show_order, name='order'),
+    path('order/create', views.create_order, name='order_create'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

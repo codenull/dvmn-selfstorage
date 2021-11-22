@@ -12,10 +12,14 @@
                     <h5 class="mb-0">Регистрационные данные</h5>
                 </div>
                 <div class="card-body">
-                    
+
                     <form method="post" action="{% url 'order' %}">
-                        
+
                         {% csrf_token %}
+
+                        <input type="hidden" name="storage_id" value="{{ storage_box.storage_id }}">
+                        <input type="hidden" name="storage_size" value="{{ storage_box.size }}">
+                        <input type="hidden" name="storage_time" value="{{ storage_box.time }}">
 
                         <div class="panel panel-primary setup-content" id="step-4">
                             <!-- <div class="panel-heading">
@@ -53,7 +57,7 @@
                             </div>
 
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                                <input name="confirm" class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
                                 <label class="form-check-label" for="invalidCheck">Соглашаюсь на обработку персональных
                                     данных</label>
                                 <div class="invalid-feedback">
@@ -65,7 +69,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-8 mb-4">
+                            <div class="col-md mb-4">
                                 <div class="card mb-4">
                                     <div class="row mb-4">
                                         <div class="col">
@@ -116,44 +120,21 @@
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                                                         <div>
-                                                            <strong>Итоговая сумма</strong>
+                                                            <strong>Итоговая сумма: <span>{{ price }}</span></strong>
                                                         </div>
-                                                        <span>1000</span>
+
                                                     </li>
                                                 </ul>
 
-                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                <div class="d-grid gap-2 col-6 mx-auto m-4">
+                                                    <input class="btn btn-primary" type="submit" value="Оплатить">
+                                                </div>
+
+                                                <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                                     data-bs-target="#exampleModal">
                                                     Оплатить
-                                                </button>
+                                                </button> -->
 
-                                                <!-- Modal -->
-                                                <div class="modal fade" id="exampleModal" tabindex="-1"
-                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">Спасибо
-                                                                    за
-                                                                    бронирование! </h5>
-                                                                <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                Ваша оплата принята.
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary"
-                                                                    data-bs-dismiss="modal">
-                                                                    Закрыть страницу
-                                                                </button>
-                                                                <button type="button" class="btn btn-primary">Вернуться
-                                                                    на главную
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -165,6 +146,36 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Спасибо
+                        за
+                        бронирование! </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Ваша оплата принята.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Закрыть страницу
+                    </button>
+                    <button type="button" class="btn btn-primary">Вернуться
+                        на главную
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </section>
 
+{% endblock %}
+
+{% block footer_scripts %}
+    <script src="{% static 'scripts/checkout.js' %}"></script>
 {% endblock %}
