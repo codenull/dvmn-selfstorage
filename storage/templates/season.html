@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+<title>
+    Сезонное хранение вещей
+</title>
+{% endblock %}
+{% block content %}
+    <form class="rounded py-3">
+        <div class="row justify-content-center">
+            <div class="col-lg-3">
+                <div class="card mb-3">
+                    <h5 class="card-header border-secondary mx-auto">Калькулятор сезонного хранения</h5>
+
+                    {% csrf_token %}
+                    <div class="m-2">
+                        <label for="FormControlCategory1" class="form-label">Что вы хотите хранить?</label>
+<!--------------------------------->
+                        <div class="card " id="FormControlCategory1">
+                            <div class="row row-cols-1 row-cols-md-2 g-4">
+                                <div class="col">
+                                    <div class="card">
+                                        <img src='../..{% static "img/images/ski.jpg" %}' class="card-img-top"
+                                             alt="Ski">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Лыжи</h5>
+                                            <div class="form-check form-check-inline">
+                                                <label for="inlineRadio1"></label>
+                                                <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                                                         id="inlineRadio1" value="option1">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card">
+                                        <img src='../..{% static "img/images/snow.jpg" %}' class="card-img-top"
+                                             alt="Snowboard">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Сноуборд</h5>
+                                            <div class="form-check form-check-inline">
+                                                <label for="inlineRadio2"></label>
+                                                <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                                                         id="inlineRadio2" value="option2">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card-body">
+                                        <img src='../..{% static "img/images/bike.jpeg" %}' class="card-img-top"
+                                             alt="Velobike">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Велосипед</h5>
+                                            <div class="form-check form-check-inline">
+                                                <label for="inlineRadio3"></label>
+                                                <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                                                         id="inlineRadio3" value="option3">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card">
+                                        <img src='../..{% static "img/images/wheel.jpg" %}' class="card-img-top"
+                                             alt="Wheels">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Колёса</h5>
+                                            <div class="form-check form-check-inline">
+                                                <label for="inlineRadio4"></label>
+                                                <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                                                         id="inlineRadio4" value="option4">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+ <!------------------------------------>
+
+                        <!--
+                        <div style="display: block; padding: 5px; margin: 10px; border: dotted red 1px;">
+                            {{ form.inventory.label }}
+                            {{ form.inventory }}
+                        </div>
+                        <div
+                                style="display: none; padding: 5px; margin: 10px; border: dotted red 1px;"
+                                id="quantity_block">
+                            {{ form.quantity.label_tag }}
+                            {{ form.quantity }}
+                        </div>
+                        <div
+                                style="display: none; padding: 5px; margin: 10px; border: dotted red 1px;"
+                                id="storage_block">
+                            {{ form.storage.label_tag }}
+                            {{ form.storage }}
+                        </div>
+                        -->
+                    </div>
+                    <div class="m-2">
+                        <label for="FormControlCategory2" class="form-label">Какое количество вещей планируется хранить?</label>
+                        <select class="form-control form-control-md" name="category" id="FormControlCategory2">
+                            {% for i in inventory_range %}
+                            <option value="{{i}}">{{i}}</option>
+                            {% endfor %}
+                            }
+                        </select>
+                    </div>
+                    <div class="m-2">
+                        <label for="FormControlCategory3" class="form-label">Выбрать адрес склада</label>
+                        <select class="form-control form-control-md" name="category1" id="FormControlCategory3">
+                            <!--
+                            {% for storage in location.storages %}
+                            <option name="storageAddress{{storage.id}}">{{storage.address}}</option>
+                            {% endfor %}
+                            -->
+                        </select>
+                    </div>
+                    <div class="m-2">
+                        <label for="FormControlCategory4" class="form-label">Выбрать период хранения</label>
+                        <div id="FormControlCategory4">
+                            <div class="card-header">Тарифы</div>
+                            <div class="card-body">
+                                <p class="card-text">Здесь будут тарифы</p>
+                            </div>
+                            <!--
+                            <div style="display: none; padding: 5px; margin: 10px; border: dotted red 1px;
+                                 id="prices_block">
+                                <p style="margin-top: 0;">Стоимость хранения одной единицы (одного комплекта)</p>
+                                <p>
+                                    1 неделя: <span id="weekPrice"></span>
+                                </p>
+                                <p>
+                                    1 месяц: <span id="monthPrice"></span>
+                                </p>
+                            </div>
+                            <div style="display: none; padding: 5px; margin: 10px; border: dotted red 1px;" id="date_block">
+                                <p style="margin-top: 0;">Период хранения: от 1 недели до 6 месяцев</p>
+                          {{ form.start_service.label_tag }}
+                          {{ form.start_service }}
+                          {{ form.end_service.label_tag }}
+                          {{ form.end_service }}
+                        </div>
+                        </div>
+                        <div class="m-2" style="display: none; padding: 5px; margin: 10px; border: dotted red 1px;"
+                        id="total_price_block">
+                          <p>Цена хранения: <span id="totalPrice"></span></p>
+                        </div>
+                        </div>
+                        -->
+                        </div>
+                    <div class="d-grid gap-2 col-6 mx-auto m-4">
+                            <a class="btn btn-primary" href="{% url 'checkout' %}" role="button">Перейти к оформлению заказа</a>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </form>
+
+{% endblock %}
+{% block footer_scripts %}
+    {{ locations|json_script:"storage-locations" }}
+    <script src="{% static 'scripts/season_calc.js' %}">
+    </script>
+
+{% endblock %}

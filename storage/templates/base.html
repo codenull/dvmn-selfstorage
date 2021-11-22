@@ -25,7 +25,7 @@
 
 <header class="header_area">
     <div class="main_menu">
-        <nav class="navbar navbar-expand-md navbar-light md-3 fixed-top shadow-md py-1 bg-body border">
+        <nav class="navbar navbar-expand-md navbar-light md-3 fixed-top shadow-md py-1 bg-body border" style="opacity: 90%">
             <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <a class="navbar-brand logo_h" href="{% url 'index' %}"><img src='../..{% static "img/logo.png" %}'
@@ -45,7 +45,7 @@
     </div>
 </header>
 <!--================Header Menu Area =================-->
-<main class="main bg-light" style="margin-top: 10em;">
+<main class="main bg-light mb-3" style="margin-top: 110px;">
     {% block content %}
     {% endblock content %}
 </main>

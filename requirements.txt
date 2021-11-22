@@ -3,3 +3,4 @@ django-phonenumber-field==6.0.0
 environs==9.3.5
 phonenumbers==8.12.37
 Pillow==8.4.0
+MonthDelta~=0.9.1
