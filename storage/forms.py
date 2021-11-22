@@ -118,7 +118,16 @@ class OrderForm(forms.Form):
             'placeholder': 'Иванович',
             'required': ''
         }))
-        
+    
+    client_birthday = fields.DateField(
+        label='Дата рождения',
+        widget=widgets.DateInput(
+            attrs={
+                'type': 'date',
+                'class': 'form-control',
+            }
+        )
+    )
     client_phonenumber = ''
     client_passport = ''
 

@@ -37,16 +37,21 @@
                                 {{ forms.order.client_patronymic }}
                             </div>
 
-                            <div class="mb-3">
-                                <h5 class="card-title">Номер телефона</h5>
-                                <input class="form-control" id="InputPhoneNumber" aria-describedby="phoneHelp"
-                                    placeholder="+79991234567" required>
+                            <div class="mx-auto mb-3">
+                                <h5 class="card-title">Дата рождения</h5>
+                                {{ forms.order.client_birthday }}
                             </div>
 
                             <div class="mb-3">
                                 <h5 class="card-title">Серия и номер паспорта</h5>
                                 <input class="form-control" id="InputPasNumber" aria-describedby="pasHelp"
                                     placeholder="4123 456789" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <h5 class="card-title">Номер телефона</h5>
+                                <input class="form-control" id="InputPhoneNumber" aria-describedby="phoneHelp"
+                                    placeholder="+79991234567" required>
                             </div>
 
                             <div class="form-check">
