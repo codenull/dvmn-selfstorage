@@ -6,7 +6,14 @@
 </title>
 {% endblock %}
 {% block content %}
-<form class="rounded py-3">
+
+<form 
+class="rounded py-3" 
+method="POST"
+id="orderForm"
+action="{% url 'personal_data' storage_type='season' %}"
+autocomplete="off"
+>
   {% csrf_token %}
   <div class="row justify-content-center">
     <div class="col-lg-3">
@@ -26,9 +33,9 @@
                     src='{{ obj.picture.url }}'
                     class="img-fluid">
                     <div class="card-body">
-                      <div class="form-check form-check-inline ps-0">
+                      <div class="form-check m-0">
                         {{ radio.tag }}
-                        {{ radio.choice_label }}
+                        <label for="{{ radio.id_for_label }}">{{ radio.choice_label }}</label>
                       </div>
                     </div>
                   </div>
@@ -62,10 +69,10 @@
           <p class="mt-0">
             Период хранения: от 1 недели до 6 месяцев
           </p>
-          {{ form.start_service.label_tag }}
-          {{ form.start_service }}
-          {{ form.end_service.label_tag }}
-          {{ form.end_service }}
+          {{ form.start_date.label_tag }}
+          {{ form.start_date }}
+          {{ form.end_date.label_tag }}
+          {{ form.end_date }}
         </div>
         <!-- Блок "Цена хранения" -->
         <div class="m-0 form-control form-control-md" style="display: none;" id="total_price_block">
@@ -73,18 +80,16 @@
             Цена хранения: <span id="totalPrice" class="fs-3" style="color: red;"></span>
           </p>
         </div>
-  
+        {{ form.price }}
         <div class="m-0 form-control form-control-md" style="display: none; justify-content: center;" id="go_to_payment">
           <button class="btn-primary" type="submit">
-            Перейти к оплате
+            Заполнить личные данные
           </button>
         </div>
-
       </div>
     </div>
   </div>
 </form>
-
 {% endblock %}
 
 {% block footer_scripts %}

@@ -1,9 +1,12 @@
 import datetime
 import monthdelta
 
-from phonenumber_field.formfields import PhoneNumberField
+from django.contrib.auth import get_user_model
+from django.forms import ModelForm
 from django.forms import fields, forms, models, widgets, Select, NumberInput
-from .models import Inventory, Storage
+from phonenumber_field.formfields import PhoneNumberField
+
+from .models import Order, Storage
 
 
 def get_min_duration():
@@ -11,46 +14,62 @@ def get_min_duration():
 
 
 def get_max_duration():
-    return datetime.date.today() + monthdelta.monthdelta(6) 
+    return datetime.date.today() + monthdelta.monthdelta(6)
 
 
-class InventoryOrderForm(forms.Form):
-    inventory = models.ModelChoiceField(
-        queryset=Inventory.objects,
-        label='Что будете хранить',
-        widget=widgets.RadioSelect()
-    )
-    quantity = fields.IntegerField(
-        label='В каком количестве',
-        widget=widgets.TextInput(
-                attrs={
-                    'min': 1,
-                    'type': "number",
-                    'class': "form-control form-control-md",
-                    'style': "width: 60px;"
-                }
-        )
-    )
-    storage = models.ModelChoiceField(
-        queryset=Storage.objects,
-        label='На каком складе',
-        widget=widgets.RadioSelect()
-    )
-    start_service = fields.DateField(
-        label='Дата начала хранения',
-        widget=widgets.TextInput(
-            attrs={'type': 'date', 'min': datetime.date.today,}
-        )
-    )
-    end_service = fields.DateField(
-        label='Дата окончания хранения',
-        widget=widgets.TextInput(
+class InventoryOrderForm(models.ModelForm):
+    class Meta:
+        model = Order
+        fields = ('inventory', 'quantity', 'storage',
+                  'start_date', 'end_date', 'price')
+        widgets = {
+            'inventory': widgets.RadioSelect(),
+            'storage': widgets.RadioSelect(),
+            'quantity': widgets.TextInput(
+                attrs={'min': 1, 'type': "number",
+                       'class': "form-control form-control-md",
+                       'style': "width: 60px;"}
+                ),
+            'price': widgets.HiddenInput(),
+            'start_date': widgets.TextInput(
+                attrs={'type': 'date',
+                       'min': datetime.date.today,
+                    }
+                ),
+            'end_date': widgets.TextInput(
                 attrs={'type': 'date',
                        'min': get_min_duration,
                        'max': get_max_duration
                     }
                 )
-            )
+            }
+
+
+class CustomUserCreationForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for name, formfield in self.fields.items():
+            if name == 'agreement':
+                formfield.widget.attrs["class"] = "form-check-input ms-2"
+            else:
+                formfield.widget.attrs["class"] = "form-control mb-2"
+                if name == 'passport':
+                    formfield.widget.attrs["minlength"] = 10
+                if name == 'email':
+                    formfield.required = True
+                if name == 'birthday':
+                    formfield.widget = widgets.TextInput(
+                        attrs={'type': 'date', 'class':"form-control mb-2"}
+                    )
+                    formfield.required = True
+
+    class Meta:
+        model = get_user_model()
+        fields = ('first_name', 'patronymic', 'last_name', 'birthday',
+                  'email', 'passport', 'phonenumber', 'agreement',)
+
+# -----------------------------------------
 
 class CalcStorageForm(forms.Form):
     def __init__(self, **kwargs):
@@ -168,4 +187,3 @@ class OrderForm(forms.Form):
     card_owner = ''
     card_exp = ''
     card_cvv = ''
-

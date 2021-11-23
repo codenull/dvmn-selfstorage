@@ -1,18 +1,22 @@
 import datetime
 import json
 
-from django.shortcuts import render
+from django import urls
+from django.shortcuts import redirect, render
 from django.http import HttpRequest
 from django.http.response import HttpResponseNotFound, JsonResponse
 from django.shortcuts import get_object_or_404, render
+from django.views.decorators.http import require_GET, require_POST
+
 import monthdelta
 
-from .forms import InventoryOrderForm
-from .models import InventoryPriceList, Town
+from .forms import CustomUserCreationForm, InventoryOrderForm
+from .models import Client, InventoryPriceList, Order, Town
 from .models import Storage
 from .forms import CalcStorageForm, OrderForm
 
 
+@require_GET
 def show_index(request):
     town = Town.objects.get(name="Воронеж")
     locations = {"town": {"location": [town.longitude, town.latitude]},
@@ -55,7 +59,6 @@ def show_checkout(request: HttpRequest):
     return render(request, 'checkout.html', context)
 
 
-
 def show_calc(request):
     context = {
         'storages': json.dumps(get_serialized_storages()),
@@ -77,28 +80,19 @@ def show_order(request):
 
 def create_order(request):
     return JsonResponse({'message': 'Аренда успешно оформлена.'})
-
-
+#------------------------------------------------------------------
+"""
+Контроллеры для калькулятора сезонного хранения инвентаря
+"""
+@require_GET
 def inventory_calc(request):
     form = InventoryOrderForm()
     context = {
-        'inventory_range': range(1, 13),
-        'inventory': zip(
-            form['inventory'],
-            form['inventory'].field.queryset
-        ),
-        'form': form
+        'inventory': zip(form['inventory'],
+                         form['inventory'].field.queryset),
+        'form': form,
     }
     return render(request, 'season.html', context)
-
-
-def calc_total_price(request, start, end):
-    start = datetime.datetime.strptime(start, '%Y-%m-%d')
-    end = datetime.datetime.strptime(end, '%Y-%m-%d')
-    delta = monthdelta.monthmod(start, end)
-    months = delta[0].months
-    weeks = round(delta[1].days / 7)
-    return JsonResponse({"months": months, "weeks": weeks})
 
 
 def get_inventory_price(request, storage_id, inventory_id):
@@ -109,3 +103,67 @@ def get_inventory_price(request, storage_id, inventory_id):
         {'weekPrice': inventory_prices.price_per_week,
          'monthPrice': inventory_prices.price_per_month}
     )
+
+
+def calc_total_price(request, start, end):
+    start = datetime.datetime.strptime(start, '%Y-%m-%d')
+    end = datetime.datetime.strptime(end, '%Y-%m-%d')
+    delta = monthdelta.monthmod(start, end)
+    months = delta[0].months
+    weeks = round(delta[1].days / 7)
+    return JsonResponse({"months": months, "weeks": weeks})
+
+"""
+Контроллеры для оформления заказа
+"""
+@require_POST
+def personal_data(request, storage_type):
+    client_form = CustomUserCreationForm()
+    if storage_type == 'box':
+        order_form = ...
+    else:
+        order_form = InventoryOrderForm(request.POST)
+    return render(
+        request,
+        'personal_data.html',
+        {'client_form': client_form,
+        'order_form': order_form,}
+    )
+
+@require_POST
+def payment(request, storage_type):
+    client_form = CustomUserCreationForm(request.POST)
+    if storage_type == 'box':
+        order_form = ...
+    else:
+        order_form = InventoryOrderForm(request.POST)
+    client_form = CustomUserCreationForm(request.POST)
+    return render(
+        request,
+        'payment.html',
+        {'client_form': client_form, 'order_form': order_form,}
+    )
+
+@require_POST
+def save_order(request, storage_type):
+    client_form = CustomUserCreationForm(request.POST)
+    client_form.is_valid()
+    try:
+        client = Client.objects.get(**client_form.cleaned_data)
+    except Client.DoesNotExist:
+        client = Client.objects.create(
+            is_active=True,
+            is_superuser=False,
+            is_staff=False,
+            **client_form.cleaned_data
+        )
+    if storage_type == 'box':
+        ...
+        return render(request, 'order_success.html', )
+    inventory_order_form = InventoryOrderForm(request.POST)
+    inventory_order_form.is_valid()
+    Order.objects.create(client=client, **inventory_order_form.cleaned_data)
+    return render(request,
+                  'order_success.html',
+                  {'order_form': inventory_order_form}
+                )

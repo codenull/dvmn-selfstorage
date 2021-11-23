@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+<title>
+  Оплата заказа
+</title>
+{% endblock %}
+{% block content %}
+<div class="row">
+  <div class="col-md-3 mx-auto mb-5">
+    <h4 class="mt-3 text-center">
+      Оплата заказа
+    </h4>
+    <form
+     class="form form-control mt-2"
+     method="POST",
+     action="{% url 'save_order' storage_type='season' %}"
+    >
+    {% csrf_token %}
+
+    {% for field in order_form %}
+      {{ field.as_hidden }}
+    {% endfor %}
+
+    {% for field in client_form %}
+      {{ field.as_hidden }}
+    {% endfor %}
+
+      <div class="input-group my-2">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Номер карты</span>
+        </div>
+        <input class="form-control" id="InpuCardNumber"
+        aria-describedby="numberHelp" placeholder="0000 0000 0000 0000"
+        minlength="19" maxlength="19" required>
+      </div>
+
+      <div class="input-group my-2">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">
+            Имя держателя карты
+          </span>
+        </div>
+        <input class="form-control"
+        id="InputCardName"
+        aria-describedby="nameHelp"
+        placeholder="IVAN IVANOV" required>
+      </div>
+      <p id="Help2" class="form-text text-muted ">
+        Латинскими буквами, как на карте
+      </p>
+
+      <div class="input-group my-2">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">
+            Срок действия
+          </span>
+        </div>
+        <input class="form-control" id="InputCardExp"
+        aria-describedby="cartexpdHelp" placeholder="MM/YY" minlength="5"
+        maxlength="5" required>
+      </div>
+
+      <div class="input-group my-2">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">
+            CVV2/CVC2
+          </span>
+        </div>
+        <input class="form-control"
+        id="InputCvv"
+        aria-describedby="cvvHelp"
+        placeholder="123" required
+        maxlength="3" minlength="3">
+      </div>
+
+      <p id="Help2" class="form-text text-muted ">
+        Трехзначный код на обратной стороне карты
+      </p>
+
+      <div>
+        <h5 class="mb-3">
+          Сумма заказа: <span>{{ order_form.price.value }}&#8381;</span>
+        </h5>
+      </div>
+
+      <div class="input-group my-2">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">
+            Промокод
+          </span>
+        </div>
+        <input type="text" name="promocode" class="form-control"
+        id="promo_code">
+      </div>
+      <div>
+        <h5 class="mt-3 mb-3">
+          Итоговая сумма: <span></span>
+        </h5>
+      </div>
+        <div class="mx-auto d-flex justify-content-center">
+          <input class="btn btn-primary" type="submit" value="Оплатить">
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+{% endblock %}

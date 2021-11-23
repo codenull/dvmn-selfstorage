@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.core.validators import MinValueValidator
 from django.db import models
 
 
@@ -109,9 +110,13 @@ class InventoryPriceList(models.Model):
 
 
 class Order(models.Model):
+    class PaymentStatus(models.IntegerChoices):
+        IS_NOT_PAID = 0, 'Заказ не оплачен'
+        IS_PAID = 1, 'Заказ оплачен'
+
     client = models.ForeignKey(to=Client,
                                on_delete=models.CASCADE,
-                               related_name='box_rental_orders',
+                               related_name='orders',
                                verbose_name='клиент')
     storage = models.ForeignKey(to='Storage',
                                 on_delete=models.SET_NULL,
@@ -121,8 +126,20 @@ class Order(models.Model):
     box_size = models.IntegerField(verbose_name='размер бокса',
                                    null=True,
                                    blank=True)
-    inventory = models.ManyToManyField(to='Inventory',
-                                       verbose_name='вещи для хранения')
+    inventory = models.ForeignKey(to='Inventory',
+                                  on_delete=models.SET_NULL,
+                                  related_name='orders',
+                                  null=True,
+                                  verbose_name='вещи для хранения')
+    quantity = models.PositiveSmallIntegerField(
+        validators=[MinValueValidator(1)],
+        verbose_name='Количество вещей'
+    )
+    payment_status = models.PositiveSmallIntegerField(
+        choices=PaymentStatus.choices,
+        default=PaymentStatus.IS_NOT_PAID,
+        verbose_name='Статус оплаты заказа'
+    )
     price = models.PositiveIntegerField(verbose_name='цена хранения')
     start_date = models.DateField(verbose_name='дата начала услуг')
     end_date = models.DateField(verbose_name='дата окончания услуг')

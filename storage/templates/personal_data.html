@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+<title>
+  Данные для заказа
+</title>
+{% endblock %}
+{% block content %}
+
+<div class="row m-2">
+  <div class="col-md-3 me-auto ms-auto">
+    <form action="{% url 'payment' storage_type='season' %}" method="POST" class="form-control">
+      {% csrf_token %}
+
+      {% for field in order_form %}
+        {{ field.as_hidden }}
+      {% endfor %}
+
+      <h2>
+        Цена заказа: {{ order_form.price.value }}&#8381;
+      </h2>
+      <h3>
+        Заполните личные данные
+      </h3>
+        {% for field in client_form %}
+          {{ field.label }}<span style="color: red">*</span>
+          {{ field }}
+          {% if field.errors %}
+          <div class="text-danger py-1">
+            {{ field.errors|striptags }}
+          </div>
+          {% endif %}
+        {% endfor %}
+      <div class="d-flex justify-content-center">
+        <button class="btn btn-primary mt-2">
+          Перейти к оплате
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

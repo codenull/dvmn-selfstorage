@@ -1,7 +1,6 @@
 from django.contrib.auth.models import AbstractUser
-from django.core import validators
 from django.core.exceptions import ValidationError
-from django.core.validators import MinValueValidator
+from django.core.validators import MinLengthValidator
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -14,15 +13,20 @@ def validate_agreement(value):
 
 
 class Client(AbstractUser):
-
+    username = models.CharField(
+        'username',
+        max_length=150,
+        blank=True,
+        null=True,
+        unique=True
+    )
     first_name = models.CharField(
         verbose_name='Имя',
         max_length=50
     )
     patronymic = models.CharField(
         verbose_name='Отчество',
-        max_length=50,
-        blank=True,
+        max_length=50
     )
     last_name = models.CharField(
         verbose_name='Фамилия',
@@ -38,8 +42,8 @@ class Client(AbstractUser):
     passport = models.CharField(
         'Серия и номер паспорта',
         max_length=10,
-        validators=[MinValueValidator(10)],
-        blank=True, null=True
+        validators=[MinLengthValidator(10)],
+        null=True
     )
     agreement = models.BooleanField(
         'Согласие на обработку персональных даных',
@@ -52,4 +56,6 @@ class Client(AbstractUser):
         verbose_name_plural = 'Клиенты'
 
     def __str__(self):
-        return f'{self.username} {self.first_name} {self.last_name}'
+        if self.username:
+            return self.username
+        return f'{self.first_name} {self.last_name}'
