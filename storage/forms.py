@@ -23,7 +23,12 @@ class InventoryOrderForm(forms.Form):
     quantity = fields.IntegerField(
         label='В каком количестве',
         widget=widgets.TextInput(
-                attrs={'min': 1, 'type': "number", 'style': "width: 30px;"}
+                attrs={
+                    'min': 1,
+                    'type': "number",
+                    'class': "form-control form-control-md",
+                    'style': "width: 60px;"
+                }
         )
     )
     storage = models.ModelChoiceField(
@@ -40,13 +45,14 @@ class InventoryOrderForm(forms.Form):
     end_service = fields.DateField(
         label='Дата окончания хранения',
         widget=widgets.TextInput(
-                attrs={'type': 'date', 'min': get_min_duration,
-                       'max': get_max_duration}
-        )
-    )
+                attrs={'type': 'date',
+                       'min': get_min_duration,
+                       'max': get_max_duration
+                    }
+                )
+            )
 
 class CalcStorageForm(forms.Form):
-    
     def __init__(self, **kwargs):
         storage_choices = ((storage.pk, str(storage))
                            for storage in Storage.objects.all())

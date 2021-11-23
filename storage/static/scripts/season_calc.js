@@ -55,14 +55,16 @@ const setQuantity = () => {
     if (startDate.value && endDate.value) { calcTotalPrice(); }
 }
 // склады
-const setStorage = checkedStorage => {
+const setStorage = async checkedStorage => {
     checkedStorageAndInventory.storage = checkedStorage;
-    getInventoryPrice();
+    await getInventoryPrice();
     if (dateBlock.style.display === "none") {
         dateBlock.style.display = "block";
         pricesBlock.style.display = "block";
     }
-    if (startDate.value && endDate.value) { calcTotalPrice(); }
+    if (startDate.value && endDate.value) {
+        await calcTotalPrice(); 
+    }
 };
 // дата начала хранения
 const setStartDate = () => {
@@ -86,7 +88,7 @@ const setStartDate = () => {
         calcTotalPrice();
         if (totalPriceBlock.style.display === "none") {
             totalPriceBlock.style.display = "block";
-            goToPaymentButton.style.display = "block";
+            goToPaymentButton.style.display = "flex";
         }
     }
 }
@@ -96,7 +98,7 @@ const setEndDate = () => {
         calcTotalPrice();
         if (totalPriceBlock.style.display === "none") {
             totalPriceBlock.style.display = "block";
-            goToPaymentButton.style.display = "block";
+            goToPaymentButton.style.display = "flex";
         }
     }
 }

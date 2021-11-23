@@ -1,8 +1,8 @@
 import datetime
 import json
+
 from django.shortcuts import render
 from django.http import HttpRequest
-
 from django.http.response import HttpResponseNotFound, JsonResponse
 from django.shortcuts import get_object_or_404, render
 import monthdelta
@@ -26,15 +26,6 @@ def show_index(request):
         )
     context = {"locations": locations}
     return render(request, 'index.html', context=context)
-
-
-def show_season(request):
-    form = InventoryOrderForm()
-    context = {
-        'inventory_range': range(1, 13),
-        'form': form
-    }
-    return render(request, 'season.html', context)
 
 
 def show_checkout(request: HttpRequest):
@@ -64,6 +55,7 @@ def show_checkout(request: HttpRequest):
     return render(request, 'checkout.html', context)
 
 
+
 def show_calc(request):
     context = {
         'storages': json.dumps(get_serialized_storages()),
@@ -84,18 +76,20 @@ def show_order(request):
 
 
 def create_order(request):
-    return JsonResponse({
-        'message': 'Аренда успешно оформлена.'
-    })
+    return JsonResponse({'message': 'Аренда успешно оформлена.'})
 
 
 def inventory_calc(request):
     form = InventoryOrderForm()
-    return render(
-        request,
-        template_name='inventory_calc.html',
-        context={'form': form}
-    )
+    context = {
+        'inventory_range': range(1, 13),
+        'inventory': zip(
+            form['inventory'],
+            form['inventory'].field.queryset
+        ),
+        'form': form
+    }
+    return render(request, 'season.html', context)
 
 
 def calc_total_price(request, start, end):
