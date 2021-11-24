@@ -24,25 +24,32 @@
 <!--================Header Menu Area =================-->
 
 <header class="header_area">
-    <div class="main_menu">
-        <nav class="navbar navbar-expand-md navbar-light md-3 fixed-top shadow-md py-1 bg-body border" style="opacity: 90%">
-            <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <a class="navbar-brand logo_h" href="{% url 'index' %}"><img src='../..{% static "img/logo.png" %}'
-                                                                             alt="Logo image"
-                                                                             class="d-inline-block"></a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="container-fluid">
-                <ul class="navbar-nav me-auto mb-2 md-lg-5">
-
-                    <a class="navbar-brand" href="{% url 'index' %}#address"><h3>Адреса складов</h3></a>
-                    <a class="navbar-brand" href="{% url 'calc' %}"><h3>Калькулятор тарифов</h3></a>
-                    <a class="navbar-brand" href="{% url 'season' %}"><h3>Сезонное хранение</h3></a>
-                </ul>
-            </div>
-        </nav>
-    </div>
+  <div class="main_menu">
+    <nav
+    class="navbar navbar-expand-md navbar-light md-3 fixed-top shadow-md py-1 bg-body border" style="opacity: 90%">
+      <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+        <a class="navbar-brand logo_h" href="{% url 'index' %}">
+          <img src='../..{% static "img/logo.png" %}'
+            alt="Logo image" class="d-inline-block">
+        </a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="container-fluid">
+        <ul class="navbar-nav me-auto mb-2 md-lg-5">
+          <a class="navbar-brand" href="{% url 'index' %}#address">
+            <h3>Адреса складов</h3>
+          </a>
+          <a class="navbar-brand" href="{% url 'calc' %}">
+            <h3>Калькулятор тарифов</h3>
+          </a>
+          <a class="navbar-brand" href="{% url 'season' %}">
+            <h3>Сезонное хранение</h3>
+          </a>
+        </ul>
+      </div>
+    </nav>
+  </div>
 </header>
 <!--================Header Menu Area =================-->
 <main class="main bg-light mb-3" style="margin-top: 110px;">

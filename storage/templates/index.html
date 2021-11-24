@@ -56,7 +56,9 @@
         </div>
 
         <div class="font-monospace fs-3" style="width: 40rem;">
-          <a class="nav-link text-dark" href="#address"><h2>Наши адреса</h2></a>
+          <a class="nav-link text-dark" name="address">
+            <h2>Наши адреса</h2>
+          </a>
             <ul>
                 {% for storage in locations.storages %}
                 <li>{{ storage.address }}</li>
