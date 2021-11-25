@@ -72,48 +72,43 @@ class CustomUserCreationForm(ModelForm):
 # -----------------------------------------
 
 class CalcStorageForm(forms.Form):
-    def __init__(self, **kwargs):
+    
+    storage_time = fields.IntegerField(min_value=1, max_value=12,)
+    storage_size = fields.IntegerField(min_value=1, max_value=20)
+    selected_storage = fields.ChoiceField()
+
+    def __init__(self,  *args, **kwargs):
         storage_choices = ((storage.pk, str(storage))
                            for storage in Storage.objects.all())
-        self.selected_storage = fields.ChoiceField(
-            choices=storage_choices,
-            label='',
-            widget=Select(attrs={
+        CalcStorageForm.declared_fields['selected_storage'].choices = storage_choices
+        
+        super().__init__( *args, **kwargs)
+
+    class Meta:
+        fields = ('selected_storage', 'storage_size', 'storage_time')
+        widgets = {
+            'selected_storage': Select(attrs={
                 'class': 'form-select',
                 'id': 'selected_storage',
                 'value': 0
-            })
-        )
-        self.storage_time = fields.IntegerField(
-            min_value=1, max_value=12,
-            widget=NumberInput(attrs={
+            }),
+            'storage_time': NumberInput(attrs={
                 'type': 'range',
                 'min': 1,
                 'max': 12,
                 'step': 1,
                 'value': 3,
                 'list': 'timeMarks'
-            }))
-        self.storage_size = fields.IntegerField(
-            min_value=1, max_value=20,
-            widget=NumberInput(attrs={
+            }),
+            'storage_size': NumberInput(attrs={
                 'type': 'range',
                 'min': 1,
                 'max': 20,
                 'step': 1,
                 'value': 3,
                 'list': 'sizeMarks'
-            }))
-
-        super().__init__(**kwargs)
-
-    class Meta:
-        fields = (
-            'selected_storage',
-            'storage_size',
-            'storage_time',
-        )
-
+            }),
+        }
 
 class OrderForm(forms.Form):
     client_first_name = fields.CharField(

@@ -13,16 +13,16 @@
 
             <h5 class="card-header border-secondary mx-auto">Калькулятор стоимости хранения</h5>
             </div>
-            <form method="POST" class="post-form" action="{% url 'checkout' %}">
+            <form method="POST" class="post-form" action="{% url 'personal_data' storage_type='box' %}">
                 
                 {% csrf_token %}
 
-                <input name="source_page" id="sourcePage" type="hidden" value="calc">
+                <!-- <input name="source_page" id="sourcePage" type="hidden" value="calc"> -->
 
                 <div id="storage-calc" class="d-grid gap-2 col-10 mx-auto m-2">
 
                     <label for="selectedStorage">Выбрать адрес склада</label>
-                    <select name="storage_id" id="selectedStorage" class="form-select" value="0">
+                    <select name="selected_storage" id="selectedStorage" class="form-select" value="0">
                     </select>
 
                     <label for="storageTime" class="form-label">Период хранения (месяц): <span

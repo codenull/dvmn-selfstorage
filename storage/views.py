@@ -2,6 +2,7 @@ import datetime
 import json
 
 from django import urls
+from django.forms.models import fields_for_model
 from django.shortcuts import redirect, render
 from django.http import HttpRequest
 from django.http.response import HttpResponseNotFound, JsonResponse
@@ -120,7 +121,7 @@ def calc_total_price(request, start, end):
 def personal_data(request, storage_type):
     client_form = CustomUserCreationForm()
     if storage_type == 'box':
-        order_form = ...
+        order_form = CalcStorageForm(request.POST)
     else:
         order_form = InventoryOrderForm(request.POST)
     return render(
